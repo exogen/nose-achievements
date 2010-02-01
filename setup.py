@@ -11,6 +11,7 @@ setup(
         'nose.plugins.0.10': [
             'achievements = noseachievements.plugin:Achievements'],
         'nose.achievements': [
-            'are-you-mocking-me = noseachievements.achievements:AreYouMockingMe']}
+            'mocking-me = noseachievements.achievements:MockingMe',
+            'night-shift = noseachievements.achievements:NightShift']}
 )
 
