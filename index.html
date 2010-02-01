@@ -1,96 +1,111 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html>
 
 <head>
-  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8">
   <title>Achievements</title>
-  <style>
-    h1 { font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif; font-size: 22px; font-weight: bold; }
-  div.writeboardbody { font-family: "Lucida Grande", verdana, arial, helvetica, sans-serif; font-size: 14px; line-height: 19px; color: #000; }
-  div.writeboardbody h1 { font-size: 130%; }
-  div.writeboardbody h2 { font-size: 100%; }
-  div.writeboardbody h3 { font-size: 100%; }
-  </style>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
-<body bgcolor="#FFFFFF">
+<body>
 
+<img id="trophy" src="images/trophy.png" width="100" height="100" alt="trophy">
 <h1>Achievements</h1>
 
-<div class="writeboardbody">
-  <h1>Speed</h1>
-<p><strong>Instant Feedback</strong><br />
-Suite takes less than 1 second<br />
-50+ tests</p>
-<p><strong>Coffee Break</strong><br />
-Suite takes 5 &#8211; 15 minutes</p>
-<p><strong>Take a Walk</strong><br />
-Suite takes 15 &#8211; 60 minutes</p>
-<p><strong>Take a Nap</strong><br />
-Suite takes 1 &#8211; 5 hours</p>
-<p><strong>Take a Vacation</strong><br />
-Suite takes 3+ days</p>
-<p><strong>Antici&#8230;pation</strong><br />
-Exactly one test is slow<br />
-All fast tests pass<br />
-10+ tests</p>
-<h1>Time</h1>
-<p><strong>Night Shift</strong><br />
-Make a failing suite pass<br />
-Time is 12am &#8211; 5am</p>
-<p><strong>Punctuality</strong><br />
-Make a failing suite pass<br />
-Time is 9:00am (give or take a minute)</p>
-<p><strong><span class="caps">OCD</span></strong><br />
-Run suite 5 or more times in the last minute<br />
-No code or tests changed</p>
-<h1>Failure</h1>
-<p><strong>Complete Failure</strong><br />
-All tests fail (no errors)<br />
-50-1,000 tests</p>
-<p><strong>Epic Fail</strong><br />
-All tests fail (no errors)<br />
-1,000+ tests</p>
-<p><strong>Minor Letdown</strong><br />
-All tests pass except the last<br />
-10-100 tests</p>
-<p><strong>Major Letdown</strong><br />
-All tests pass except the last<br />
-100+ tests</p>
-<p><strong>Happy Ending</strong><br />
-Only the last test passes<br />
-10+ tests</p>
-<p><strong>Heisenbug</strong><br />
-Failing tests<br />
-Last run passed<br />
-No code or tests changed</p>
-<h1>Errors</h1>
-<p><strong>Sausage Fingers</strong><br />
-Two or more distinct syntax errors</p>
-<p><strong>To Understand Recursion&#8230;</strong><br />
-Maximum recursion depth exceeded</p>
-<p><strong>To Err is Human</strong><br />
-A single syntax error breaks all tests</p>
-<h2>Success</h2>
-<p><strong>My God, It&#8217;s Full of Dots</strong><br />
-2,001 or more passing tests</p>
-<h1>Coverage</h1>
-<p><strong>100% Code Coverage (Level X)</strong><br />
-All tests pass<br />
-100% code coverage<br />
-10^(X+2) statements</p>
-<h1>Libraries</h1>
-<p><strong>Are You Mocking Me?</strong><br />
-All tests pass<br />
-Tests import a mocking library</p>
-<h1>Refactoring</h1>
-<p><strong>Successful Refactor (Level X)</strong><br />
-Last run passed<br />
-All tests pass<br />
-10^(X+1) lines of code changed</p>
-</div>
+<h2>Speed</h2>
+<ul class="achievements">
+  <li class="achievement" id="instant-feedback"><h3>Instant Feedback</h3>
+  A suite of at least 50 tests takes less than a second.
+
+  <li class="achievement" id="coffee-break"><h3>Coffee Break</h3>
+  The suite takes between 5 and 15 minutes.
+
+  <li class="achievement" id="take-a-walk"><h3>Take a Walk</h3>
+  The suite takes between 15 and 60 minutes.
+
+  <li class="achievement" id="take-a-nap"><h3>Take a Nap</h3>
+  The suite takes between 1 and 5 hours.
+
+  <li class="achievement" id="take-a-vacation"><h3>Take a Vacation</h3>
+  The suite takes at least 3 days.
+
+  <li class="achievement" id="anticipation"><h3>Antici&hellip;pation</h3>
+  One test in a suite of at least 10 is slow, and all the rest pass.
+</ul>
+
+<h2>Time</h2>
+<ul class="achievements">
+  <li class="achievement" id="night-shift"><h3>Night Shift</h3>
+  Make a failing suite pass between 12am and 5am.
+
+  <li class="achievement" id="punctuality"><h3>Punctuality</h3>
+  Make a failing suite pass at 9am (give or take a minute).
+</ul>
+
+<h2>Failure</h2>
+<ul class="achievements">
+  <li class="achievement" id="complete-failure"><h3>Complete Failure</h3>
+  All tests in a suite of 50 to 999 fail.
+
+  <li class="achievement" id="epic-fail"><h3>Epic Fail</h3>
+  All tests in a suite of at least 1,000 fail.
+
+  <li class="achievement" id="minor-letdown"><h3>Minor Letdown</h3>
+  All tests in a suite of 10 to 99 pass except the last.
+
+  <li class="achievement" id="major-letdown"><h3>Major Letdown</h3>
+  All tests in a suite of at least 100 pass except the last.
+
+  <li class="achievement" id="happy-ending"><h3>Happy Ending</h3>
+  Only the last test in a suite of at least 10 passes.
+
+  <li class="achievement" id="heisenbug"><h3>Heisenbug</h3>
+  Make a passing suite fail without changing anything.
+</ul>
+
+<h2>Errors</h2>
+<ul class="achievements">
+  <li class="achievement" id="sausage-fingers"><h3>Sausage Fingers</h3>
+  Cause at least 2 distinct syntax errors in a single run.
+
+  <li class="achievement" id="to-understand-recursion"><h3>To Understand Recursion&hellip;</h3>
+  Exceed the maximum recursion depth.
+
+  <li class="achievement" id="to-err-is-human"><h3>To Err is Human</h3>
+  Cause all tests in a suite of at least 50 to fail with a single error.
+</ul>
+
+<h2>Size</h2>
+<ul class="achievements">
+  <li class="achievement" id="my-god-its-full-of-dots"><h3>My God, It’s Full of Dots</h3>
+  The suite has at least 2,001 passing tests.
+</ul>
+
+<h2>Frequency</h2>
+<ul class="achievements">
+  <li class="achievement" id="ocd"><h3>OCD</h3>
+  Run the suite at least 5 times in the span of a minute without changing anything.
+</ul>
+
+<h2>Coverage</h2>
+<ul class="achievements">
+  <li class="achievement" id="100-code-coverage"><h3>100% Code Coverage (Level <i>X</i>)</h3>
+  Achieve 100% code coverage of at least 10<sup><i>X</i>+2</sup> statements with all tests passing.
+</ul>
+
+<h2>Libraries</h2>
+<ul class="achievements">
+  <li class="achievement" id="are-you-mocking-me"><h3>Are You Mocking Me?</h3>
+  Import a mocking library with at least one passing test.
+</ul>
+
+<h2>Refactoring</h2>
+<ul class="achievements">
+  <li class="achievement" id="successful-refactor"><h3>Successful Refactor (Level <i>X</i>)</h3>
+  Change at least 10<sup><i>X</i>+1</sup> lines of code between two consecutive passing runs.
+</ul>
 
 </body>
 </html>
+
