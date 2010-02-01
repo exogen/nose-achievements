@@ -1,0 +1,62 @@
+body {
+  font-size: 16px;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #303238;
+  color: #ddd;
+  padding: 20px 200px 20px 100px;
+}
+
+#trophy {
+  position: absolute;
+  top: 15px;
+  right: 135px;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: normal;
+  text-align: right;
+  color: #eee;
+  margin: 15px 0 15px 100px;
+  padding-right: 50px;
+}
+
+h2 {
+  float: left;
+  clear: left;
+  width: 90px;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: normal;
+  margin: 10px 0;
+  color: #999;
+  text-transform: uppercase;
+  text-align: right;
+}
+
+ul.achievements {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 0 100px;
+}
+
+li.achievement {
+  font-size: 14px;
+  margin: 15px 0;
+  padding: 10px;
+  border: 1px solid #666;
+  background-color: #3c3e42;
+  color: #999;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+li.achievement h3 {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  color: #ccc;
+}
+
