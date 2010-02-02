@@ -14,11 +14,11 @@ class AchievementData(dict):
 
     def unlock(self, achievement, value=True):
         unlocked = self.setdefault('achievements.unlocked', {})
-        unlocked[achievement.id] = value
+        unlocked[achievement.key] = value
         self.setdefault('achievements.new', []).append(achievement)
 
     def is_unlocked(self, achievement):
         if not isinstance(achievement, basestring):
-            achievement = achievement.id
+            achievement = achievement.key
         return achievement in self.get('achievements.unlocked', {})
 

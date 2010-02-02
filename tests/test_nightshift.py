@@ -1,11 +1,13 @@
 import unittest
 from datetime import datetime, timedelta
-from noseachievements.achievements import NightShift
+from noseachievements.achievements import get_achievement
 from util import TestAchievement
 
 
+achievement = get_achievement('night-shift')
+
 class TestNightShiftAchievement(TestAchievement):
-    achievements = [NightShift()]
+    achievements = [achievement()]
 
     def test_is_locked_from_5am_to_midnight(self):
         for hour in range(5, 12):

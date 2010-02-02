@@ -22,10 +22,7 @@ class TestAchievement(PluginTester):
     activate = '--with-achievements'
     achievements = []
     suite = PASS_SUITE
-
-    def __init__(self):
-        PluginTester.__init__(self)
-        self.data = AchievementData({'testing': 123})
+    data = AchievementData()
 
     def setUp(self):
         self.plugins = [Achievements(self.achievements, self.data, save=False)]

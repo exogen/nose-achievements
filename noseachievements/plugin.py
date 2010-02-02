@@ -5,6 +5,7 @@ import logging
 from datetime import datetime
 from nose.plugins.base import Plugin
 from pkg_resources import iter_entry_points
+from noseachievements.achievements import get_achievements
 from noseachievements.data import AchievementData
 
 
@@ -41,10 +42,11 @@ class Achievements(Plugin):
                 return AchievementData.load(data_file)
             except (IOError, EOFError):
                 pass
-        log.debug("Starting with new achievement data.")
         if self.data is None:
+            log.debug("Starting with new achievement data.")
             return AchievementData()
         else:
+            log.debug("Starting with provided achievement data.")
             return self.data
 
     def save_data(self):
@@ -56,39 +58,45 @@ class Achievements(Plugin):
     def begin(self):
         self.data = self.load_data()
         if self.discovery:
-            for entry_point in iter_entry_points('nose.achievements'):
-                achievement = entry_point.load()
-                achievement.id = entry_point.name
-                self.achievements.append(achievement())
+            for achievement in get_achievements():
+                if not self.data.is_unlocked(achievement):
+                    self.achievements.append(achievement())
         for achievement in self.achievements:
-             achievement.begin(self.data)
+            if not self.data.is_unlocked(achievement):
+                 achievement.begin(self.data)
 
     def afterTest(self, test):
         for achievement in self.achievements:
-            achievement.afterTest(self.data, test)
+            if not self.data.is_unlocked(achievement):
+                achievement.afterTest(self.data, test)
 
     def prepareTest(self, test):
-        #self.data['time.start'] = datetime.now()
+        self.data.setdefault('time.start', datetime.now())
         for achievement in self.achievements:
-            achievement.prepareTest(self.data, test)
+            if not self.data.is_unlocked(achievement):
+                achievement.prepareTest(self.data, test)
 
     def startTest(self, test):
         for achievement in self.achievements:
-            achievement.startTest(self.data, test)
+            if not self.data.is_unlocked(achievement):
+                achievement.startTest(self.data, test)
 
     def stopTest(self, test):
         for achievement in self.achievements:
-            achievement.stopTest(self.data, test)
+            if not self.data.is_unlocked(achievement):
+                achievement.stopTest(self.data, test)
 
     def setOutputStream(self, stream):
         self.stream = stream
-        #self.data['time.finish'] = datetime.now()
+        self.data.setdefault('time.finish', datetime.now())
         for achievement in self.achievements:
-            achievement.setOutputStream(self.data, stream)
+            if not self.data.is_unlocked(achievement):
+                achievement.setOutputStream(self.data, stream)
 
     def report(self, stream):
         for achievement in self.achievements:
-            achievement.report(self.data, stream)
+            if not self.data.is_unlocked(achievement):
+                achievement.report(self.data, stream)
 
     def finalize(self, result):
         self.data['result.errors'] = result.errors
@@ -96,11 +104,12 @@ class Achievements(Plugin):
         self.data['result.tests'] = result.testsRun
         self.data['result.success'] = result.wasSuccessful()
         for achievement in self.achievements:
-            achievement.finalize(self.data, result)
+            if not self.data.is_unlocked(achievement):
+                achievement.finalize(self.data, result)
         self.save_data()
         unlocked = self.data.get('achievements.new', [])
         if unlocked:
             stream = codecs.getwriter('utf8')(self.stream)
             for achievement in unlocked:
-                stream.write(u"\n%s\n" % achievement.banner())
+                stream.write(u"%s\n" % achievement.banner())
 
