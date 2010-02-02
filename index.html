@@ -1,111 +1,143 @@
 ﻿<!DOCTYPE html>
-
 <html>
-
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8">
   <title>Achievements</title>
   <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-
 <body>
+<div id="content">
 
 <img id="trophy" src="images/trophy.png" width="100" height="100" alt="trophy">
-<h1>Achievements</h1>
+<h1><a href=".">Achievements</a></h1>
 
 <h2>Speed</h2>
 <ul class="achievements">
-  <li class="achievement" id="instant-feedback"><h3>Instant Feedback</h3>
-  A suite of at least 50 tests takes less than a second to run.
-
-  <li class="achievement" id="coffee-break"><h3>Coffee Break</h3>
-  The suite takes between 5 and 15 minutes to run.
-
-  <li class="achievement" id="take-a-walk"><h3>Take a Walk</h3>
-  The suite takes between 15 and 60 minutes to run.
-
-  <li class="achievement" id="take-a-nap"><h3>Take a Nap</h3>
-  The suite takes between 1 and 5 hours to run.
-
-  <li class="achievement" id="take-a-vacation"><h3>Take a Vacation</h3>
-  The suite takes at least 3 days to run.
-
-  <li class="achievement" id="anticipation"><h3>Antici&hellip;pation</h3>
-  One test in a suite of at least 10 is slow, and all the rest pass.
+  <li class="achievement" id="instant-feedback">
+    <h3><a href="#instant-feedback">Instant Feedback</a></h3>
+    A suite of at least 50 tests takes less than a second to run.
+  </li>
+  <li class="achievement" id="coffee-break">
+    <h3><a href="#coffee-break">Coffee Break</a></h3>
+    The suite takes between 5 and 15 minutes to run.
+  </li>
+  <li class="achievement" id="take-a-walk">
+    <h3><a href="#take-a-walk">Take a Walk</a></h3>
+    The suite takes between 15 and 60 minutes to run.
+  </li>
+  <li class="achievement" id="take-a-nap">
+    <h3><a href="#take-a-nap">Take a Nap</a></h3>
+    The suite takes between 1 and 5 hours to run.
+  </li>
+  <li class="achievement highlight" id="take-a-vacation">
+    <h3><a href="#take-a-vacation">Take a Vacation</a></h3>
+    The suite takes at least 3 days to run.
+  </li>
+  <li class="achievement" id="anticipation">
+    <h3><a href="#anticipation">Antici&hellip;pation</a></h3>
+    One test in a suite of at least 10 is slow, and all the rest pass.
+  </li>
 </ul>
 
 <h2>Time</h2>
 <ul class="achievements">
-  <li class="achievement" id="night-shift"><h3>Night Shift</h3>
-  Make a failing suite pass between 12am and 5am.
+  <li class="achievement" id="night-shift">
+    <h3><a href="#night-shift">Night Shift</a></h3>
+    Make a failing suite pass between 12am and 5am.
+  </li>
 
-  <li class="achievement" id="punctuality"><h3>Punctuality</h3>
-  Make a failing suite pass at 9am (give or take a minute).
+  <li class="achievement" id="punctuality">
+    <h3><a href="#punctuality">Punctuality</a></h3>
+    Make a failing suite pass at 9am (give or take a minute).
+  </li>
 </ul>
 
 <h2>Failure</h2>
 <ul class="achievements">
-  <li class="achievement" id="complete-failure"><h3>Complete Failure</h3>
-  All tests in a suite of 50 to 999 fail.
+  <li class="achievement" id="complete-failure">
+    <h3><a href="#complete-failure">Complete Failure</a></h3>
+    All tests in a suite of 50 to 999 fail.
+  </li>
 
-  <li class="achievement" id="epic-fail"><h3>Epic Fail</h3>
-  All tests in a suite of at least 1,000 fail.
-
-  <li class="achievement" id="minor-letdown"><h3>Minor Letdown</h3>
-  All tests in a suite of 10 to 99 pass except the last.
-
-  <li class="achievement" id="major-letdown"><h3>Major Letdown</h3>
-  All tests in a suite of at least 100 pass except the last.
-
-  <li class="achievement" id="happy-ending"><h3>Happy Ending</h3>
-  Only the last test in a suite of at least 10 passes.
-
-  <li class="achievement" id="heisenbug"><h3>Heisenbug</h3>
-  Make a passing suite fail without changing anything.
+  <li class="achievement" id="epic-fail">
+    <h3><a href="#epic-fail">Epic Fail</a></h3>
+    All tests in a suite of at least 1,000 fail.
+  </li>
+  <li class="achievement" id="minor-letdown">
+    <h3><a href="#minor-letdown">Minor Letdown</a></h3>
+    All tests in a suite of 10 to 99 pass except the last.
+  </li>
+  <li class="achievement" id="major-letdown">
+    <h3><a href="#major-letdown">Major Letdown</a></h3>
+    All tests in a suite of at least 100 pass except the last.
+  </li>
+  <li class="achievement" id="happy-ending">
+    <h3><a href="#happy-ending">Happy Ending</a></h3>
+    Only the last test in a suite of at least 10 passes.
+  </li>
+  <li class="achievement" id="heisenbug">
+    <h3><a href="#heisenbug">Heisenbug</a></h3>
+    Make a passing suite fail without changing anything.
+  </li>
 </ul>
 
 <h2>Errors</h2>
 <ul class="achievements">
-  <li class="achievement" id="sausage-fingers"><h3>Sausage Fingers</h3>
-  Cause at least 2 distinct syntax errors in a single run.
-
-  <li class="achievement" id="to-understand-recursion"><h3>To Understand Recursion&hellip;</h3>
-  Exceed the maximum recursion depth.
-
-  <li class="achievement" id="to-err-is-human"><h3>To Err is Human</h3>
-  Cause all tests in a suite of at least 50 to fail with a single error.
+  <li class="achievement" id="sausage-fingers">
+    <h3><a href="#sausage-fingers">Sausage Fingers</a></h3>
+    Cause at least 2 distinct syntax errors in a single run.
+  </li>
+  <li class="achievement" id="to-understand-recursion">
+    <h3><a href="#to-understand-recursion">To Understand Recursion&hellip;</a></h3>
+    Exceed the maximum recursion depth.
+  </li>
+  <li class="achievement" id="to-err-is-human">
+    <h3><a href="#to-err-is-human">To Err is Human</a></h3>
+    Cause all tests in a suite of at least 50 to fail with a single error.
+  </li>
 </ul>
 
 <h2>Size</h2>
 <ul class="achievements">
-  <li class="achievement" id="my-god-its-full-of-dots"><h3>My God, It’s Full of Dots</h3>
-  The suite has at least 2,001 passing tests.
+  <li class="achievement" id="my-god-its-full-of-dots">
+    <h3><a href="#my-god-its-full-of-dots">My God, It’s Full of Dots</a></h3>
+    The suite has at least 2,001 passing tests.
+  </li>
 </ul>
 
 <h2>Frequency</h2>
 <ul class="achievements">
-  <li class="achievement" id="ocd"><h3>OCD</h3>
-  Run the suite at least 5 times in the span of a minute without changing anything.
+  <li class="achievement" id="ocd">
+    <h3><a href="#ocd">OCD</a></h3>
+    Run the suite at least 5 times in the span of a minute without changing anything.
+  </li>
 </ul>
 
 <h2>Coverage</h2>
 <ul class="achievements">
-  <li class="achievement" id="100-code-coverage"><h3>100% Code Coverage <span class="sep">&bull;</span> Level &#119909;</h3>
-  Achieve 100% code coverage of at least 2<sup>&#119909;+8</sup> statements with all tests passing.
+  <li class="achievement" id="100-code-coverage">
+    <h3><a href="#100-code-coverage">100% Code Coverage <span class="sep">&bull;</span> Level &#119909;</a></h3>
+    Achieve 100% code coverage of at least 2<sup>&#119909;+8</sup> statements with all tests passing.
+  </li>
 </ul>
 
 <h2>Libraries</h2>
 <ul class="achievements">
-  <li class="achievement" id="are-you-mocking-me"><h3>Are You Mocking Me?</h3>
-  Import a mocking library with at least one passing test.
+  <li class="achievement" id="are-you-mocking-me">
+    <h3><a href="#are-you-mocking-me">Are You Mocking Me?</a></h3>
+    Import a mocking library with at least one passing test.
+  </li>
 </ul>
 
 <h2>Refactoring</h2>
 <ul class="achievements">
-  <li class="achievement" id="successful-refactor"><h3>Successful Refactor <span class="sep">&bull;</span> Level &#119909;</h3>
-  Change at least 2<sup>&#119909;+5</sup> lines of code between two consecutive passing runs.
+  <li class="achievement" id="successful-refactor">
+    <h3><a href="#successful-refactor">Successful Refactor <span class="sep">&bull;</span> Level &#119909;</a></h3>
+    Change at least 2<sup>&#119909;+5</sup> lines of code between two consecutive passing runs.
+    </li>
 </ul>
 
+</div>
 </body>
 </html>
 

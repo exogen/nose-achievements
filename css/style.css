@@ -1,9 +1,16 @@
 body {
   font-size: 16px;
   font-family: Helvetica, Arial, sans-serif;
-  background-color: #303238;
+  background-color: #12141a;
   color: #ddd;
-  padding: 20px 200px 20px 100px;
+  margin: 0;
+  padding: 0;
+}
+
+#content {
+    position: relative;
+    margin: 0 10%;
+    padding: 20px 200px 20px 100px;
 }
 
 #trophy {
@@ -16,9 +23,18 @@ h1 {
   font-size: 24px;
   font-weight: normal;
   text-align: right;
-  color: #eee;
+  color: #aab;
   margin: 15px 0 15px 100px;
   padding-right: 50px;
+}
+
+h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1 a:hover {
+  text-decoration: underline;
 }
 
 h2 {
@@ -29,7 +45,7 @@ h2 {
   line-height: 20px;
   font-weight: normal;
   margin: 11px 0;
-  color: #999;
+  color: #445;
   text-transform: uppercase;
   text-align: right;
 }
@@ -44,24 +60,43 @@ li.achievement {
   font-size: 14px;
   margin: 15px 0;
   padding: 10px;
-  border: 1px solid #666;
-  background-color: #3c3e42;
-  color: #999;
+  border: 1px solid #333;
+  background-color: #1e2024;
+  color: #667;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+}
+
+li.achievement.highlight {
+  border-color: #d93;
+  background-color: #202226;
+  color: #99a;
 }
 
 li.achievement h3 {
   font-size: 16px;
   line-height: 20px;
-  font-weight: bold;
+  font-weight: normal;
   margin: 0;
   padding: 0;
-  color: #ccc;
+  color: #bbb;
+}
+
+li.achievement.highlight h3 {
+  color: #fff;
+}
+
+li.achievement h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+li.achievement h3 a:hover {
+  text-decoration: underline;
 }
 
 li.achievement h3 .sep {
-  color: #999;
+  color: #667;
   margin-left: 0.25em;
   margin-right: 0.25em;
 }
