@@ -1,7 +1,7 @@
 body {
   font-size: 16px;
   font-family: Helvetica, Arial, sans-serif;
-  background-color: #12141a;
+  background-color: #14161c;
   color: #ddd;
   margin: 0;
   padding: 0;
@@ -45,7 +45,7 @@ h2 {
   line-height: 20px;
   font-weight: normal;
   margin: 11px 0;
-  color: #445;
+  color: #48484e;
   text-transform: uppercase;
   text-align: right;
 }
@@ -62,7 +62,7 @@ li.achievement {
   padding: 10px;
   border: 1px solid #333;
   background-color: #1e2024;
-  color: #667;
+  color: #6a6a70;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
@@ -79,7 +79,7 @@ li.achievement h3 {
   font-weight: normal;
   margin: 0;
   padding: 0;
-  color: #bbb;
+  color: #ccc;
 }
 
 li.achievement.highlight h3 {
