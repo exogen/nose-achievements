@@ -9,7 +9,7 @@ setup(
     author_email='exogen@gmail.com',
     entry_points={
         'nose.plugins.0.10': [
-            'achievements = noseachievements.plugin:Achievements'],
+            'achievements = noseachievements.plugin:AchievementsPlugin'],
         'nose.achievements': []}
 )
 
