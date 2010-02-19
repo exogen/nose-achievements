@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime, time
+import sys
+from datetime import datetime, time, timedelta
 
 from noseachievements.achievements.base import Achievement
 
@@ -37,4 +38,67 @@ class Punctuality(Achievement):
              self.punctual_end or self.punctual_start <=
              data['time.finish'].time() < self.punctual_end)):
             data.unlock(self)
+
+class InstantFeedback(Achievement):
+    title = "Instant Feedback"
+
+    def finalize(self, data, result):
+        duration = data['time.finish'] - data['time.start']
+        if result.testsRun >= 50 and duration < timedelta(seconds=1):
+            data.unlock(self)
+
+class CoffeeBreak(Achievement):
+    title = "Coffee Break"
+    template = u"""
+          (
+        (  )
+      .·:)::·.
+   _.|`·::::·´|  %(announcement)s
+ /,¯`,        |
+ :'_.|        |  %(title)s
+  `¯˘:        |  %(subtitle)s
+      `·.__.·´"""
+
+    def finalize(self, data, result):
+        duration = data['time.finish'] - data['time.start']
+        if timedelta(minutes=5) <= duration < timedelta(minutes=15):
+            data.unlock(self)
+
+class TakeAWalk(Achievement):
+    title = "Take a Walk"
+
+    def finalize(self, data, result):
+        duration = data['time.finish'] - data['time.start']
+        if timedelta(minutes=15) <= duration < timedelta(minutes=60):
+            data.unlock(self)
+
+class FullOfDots(Achievement):
+    title = "My God, It's Full of Dots"
+
+    def finalize(self, data, result):
+        passing = result.testsRun - len(result.failures) - len(result.errors)
+        if passing >= 2001:
+            data.unlock(self)
+
+class MockingMe(Achievement):
+    title = "Are You Mocking Me?"
+    mocking_modules = ['mock', 'mocker', 'pmock', 'dingus', 'mox', 'ludibrio',
+                       'minimock', 'mocktest', 'mocky', 'plone.mocktestcase',
+                       'pymock']
+
+    def finalize(self, data, result):
+        for module in self.mocking_modules:
+            if module in sys.modules:
+                data.unlock(self)
+                break
+
+class GreatExpectations(Achievement):
+    title = "Great Expectations"
+
+    def finalize(self, data, result):
+        if 'expecter' in sys.modules:
+            data.unlock(self)
+
+class ToUnderstandRecursion(Achievement):
+    title = "To Understand Recursion..."
 
