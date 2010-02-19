@@ -9,7 +9,8 @@ body {
 
 #content {
     position: relative;
-    margin: 0 50px;
+    margin: 0 auto;
+    width: 600px;
     padding: 20px 200px 20px 100px;
 }
 
