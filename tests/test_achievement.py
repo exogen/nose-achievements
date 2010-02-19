@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 import unittest
-from nose.plugins import Plugin
+
 from noseachievements.achievements.base import Achievement
-from noseachievements.plugin import AchievementsPlugin
-from helpers import PASS, TestPlugin
+
+from helpers import PASS, TestPlugin, AlwaysUnlockedAchievement
 
 
 class TestAchievement(TestPlugin):
@@ -12,9 +13,37 @@ class TestAchievement(TestPlugin):
         TestPlugin.setUp(self)
 
     def test_achievement_is_loaded(self):
-        assert self.achievement in self.plugin.achievements
+        self.assert_(self.achievement in self.plugin.achievements)
 
     def test_no_achievements_are_printed(self):
-        self.assertEqual(unicode(self.output),
-            ".\n%s\nRan 1 test in 0.000s\n\nOK\n" % ('-' * 70))
+        self.assert_("Ran 1 test" in self.output)
+        self.assert_("Achievement unlocked" not in self.output)
+
+    def test_announcement_returns_unlocked_string(self):
+        self.assertEqual(self.achievement.announcement(), u"""
+  /.–==*==–.\\
+ ( |      #| ) Achievement unlocked!
+  ):      ':(
+    `·…_…·´    
+      `H´      
+     _.U._     
+    [_____]""")
+
+
+class TestUnlockedAchievement(TestPlugin):
+    def setUp(self):
+        self.achievement = AlwaysUnlockedAchievement()
+        self.achievements = [self.achievement]
+        TestPlugin.setUp(self)
+
+    def test_achievement_is_printed(self):
+        self.assert_(u"""
+  /.–==*==–.\\
+ ( |      #| ) Achievement unlocked!
+  ):      ':(
+    `·…_…·´    Test Achievement
+      `H´      Test Subtitle
+     _.U._     Test Message
+    [_____]""".encode('utf-8') in self.output)
+            
 

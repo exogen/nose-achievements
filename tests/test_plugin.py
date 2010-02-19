@@ -1,7 +1,9 @@
 import unittest
+
 from nose.plugins import Plugin
 from noseachievements.achievements.base import Achievement
 from noseachievements.plugin import AchievementsPlugin
+
 from helpers import PASS, TestPlugin
 
 
