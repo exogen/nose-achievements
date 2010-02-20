@@ -12,11 +12,14 @@ class Achievement(object):
     title = None
     subtitle = None
     message = None
+
+    def configure(self, data, options, conf):
+        pass
     
     def finalize(self, data, result):
         pass
 
-    def announcement(self):
+    def announcement(self, info=None):
         return self.template % {'announcement': "Achievement unlocked!",
                                 'title': self.title or "",
                                 'subtitle': self.subtitle or "",

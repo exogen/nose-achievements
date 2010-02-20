@@ -10,6 +10,7 @@ from noseachievements.achievements import DEFAULT_ACHIEVEMENTS
 class AchievementsPlugin(Plugin):
     name = 'achievements'
     filename_env = 'ACHIEVEMENTS_FILE'
+    score = -1000
 
     def __init__(self, achievements=None, data=None,
                  save_file='.achievements'):
@@ -30,18 +31,35 @@ class AchievementsPlugin(Plugin):
         if self.achievements is None:
             self.achievements = list(DEFAULT_ACHIEVEMENTS)
 
-    def begin(self):
         self.data.setdefault('time.start', datetime.now())
         self.data.setdefault('achievements.pending', [])
         self.data.setdefault('achievements.unlocked', {})
+        self.data.setdefault('result.string', '')
+        self.data.setdefault('result.errors.exc_info', [])
+        self.data.setdefault('result.failures.exc_info', [])
+        
+        for achievement in self.achievements:
+            achievement.configure(self.data, options, conf)
+
+    def formatError(self, test, err):
+        self.data['result.string'] += 'E'
+        self.data['result.errors.exc_info'].append(err)
+
+    def formatFailure(self, test, err):
+        self.data['result.string'] += 'F'
+        self.data['result.failures.exc_info'].append(err)
 
     def afterTest(self, test):
-        self.data.setdefault('time.finish', datetime.now())
+        if test.passed is None:
+            self.data['result.string'] += '.'
 
     def setOutputStream(self, stream):
         self.output_stream = stream
 
     def finalize(self, result):
+        self.data.setdefault('time.finish', datetime.now())
+        
+
         for achievement in self.achievements:
             achievement.finalize(self.data, result)
 

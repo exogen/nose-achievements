@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import sys
+import re
+import math
 from datetime import datetime, time, timedelta
+from cStringIO import StringIO
 
 from noseachievements.achievements.base import Achievement
 
@@ -72,6 +75,59 @@ class TakeAWalk(Achievement):
         if timedelta(minutes=15) <= duration < timedelta(minutes=60):
             data.unlock(self)
 
+class TakeANap(Achievement):
+    title = "Take a Nap"
+
+    def finalize(self, data, result):
+        duration = data['time.finish'] - data['time.start']
+        if timedelta(hours=1) <= duration < timedelta(hours=5):
+            data.unlock(self)
+
+class TakeAVacation(Achievement):
+    title = "Take a Vacation"
+
+    def finalize(self, data, result):
+        duration = data['time.finish'] - data['time.start']
+        if duration >= timedelta(days=3):
+            data.unlock(self)
+
+class CompleteFailure(Achievement):
+    title = "Complete Failure"
+
+    def finalize(self, data, result):
+        if (50 <= result.testsRun <= 999 and
+            result.testsRun == len(result.failures)):
+            data.unlock(self)
+
+class EpicFail(Achievement):
+    title = "Epic Fail"
+
+    def finalize(self, data, result):
+        if (result.testsRun >= 1000 and
+            result.testsRun == len(result.failures)):
+            data.unlock(self)
+
+class MinorLetdown(Achievement):
+    title = "Minor Letdown"
+    
+    def finalize(self, data, result):
+        if re.match(r'[.]{9,98}[FE]$', data['result.string']):
+            data.unlock(self)
+
+class MajorLetdown(Achievement):
+    title = "Major Letdown"
+
+    def finalize(self, data, result):
+        if re.match(r'[.]{99,}[FE]$', data['result.string']):
+            data.unlock(self)
+
+class HappyEnding(Achievement):
+    title = "Happy Ending"
+
+    def finalize(self, data, result):
+        if re.match(r'[EF]{9,}[.]$', data['result.string']):
+            data.unlock(self)
+
 class FullOfDots(Achievement):
     title = "My God, It's Full of Dots"
 
@@ -101,4 +157,67 @@ class GreatExpectations(Achievement):
 
 class ToUnderstandRecursion(Achievement):
     title = "To Understand Recursion..."
+
+    def finalize(self, data, result):
+        for test, traceback in result.errors:
+            if traceback.endswith("RuntimeError: maximum recursion depth "
+                                  "exceeded\n"):
+                data.unlock(self)
+                break
+
+class SausageFingers(Achievement):
+    title = "Sausage Fingers"
+
+    def finalize(self, data, result):
+        syntax_errors = set()
+        for type_, value, traceback in data['result.errors.exc_info']:
+            if type_ is SyntaxError:
+                syntax_errors.add((value.filename, value.lineno))
+        if len(syntax_errors) > 1:
+            data.unlock(self)
+
+class CodeCoverage(Achievement):
+    template = u"""
+            .
+         .cd'b;
+     _  (xk',ko)
+   ckko. lk kd'      %(announcement)s
+  (kkkkl )k k( ,dl,
+   `qkkk.k',x'xxkk)  %(title)s
+     )xkxk kxxxxo:   %(subtitle)s
+   ·dxkkxx kkk(      %(message)s
+    `·^·´'|·^˘·´             
+          |                  
+"""
+
+
+
+    title = "100% Code Coverage"
+
+    def configure(self, data, options, conf):
+        try:
+            import coverage
+        except ImportError:
+            self.enabled = False
+        else:
+            self.coverage_module = coverage
+            self.enabled = True
+
+    def finalize(self, data, result):
+        if result.wasSuccessful() and self.enabled:
+            coverage = self.coverage_module.coverage()
+            coverage.load()
+            report = StringIO()
+            coverage.report(file=report)
+            report_string = report.getvalue()
+            last_line = report_string.splitlines()[-1]
+            match = re.match(r'TOTAL\s+(?P<stmts>\d+)\s+(?P<exec>\d+)\s+'
+                             r'(?P<cover>\d+)%', last_line)
+            if match:
+                statements = int(match.group('stmts'))
+                executed = int(match.group('exec'))
+                percent_covered = int(match.group('cover'))
+                if percent_covered == 100:
+                    level = int(math.log(statements, 2) - 7)
+                    data.unlock(self)
 
