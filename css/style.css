@@ -63,7 +63,7 @@ li.achievement {
   padding: 10px;
   border: 1px solid #333;
   background-color: #1e2024;
-  color: #6a6a70;
+  color: #7e7e84;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
@@ -80,7 +80,7 @@ li.achievement h3 {
   font-weight: normal;
   margin: 0;
   padding: 0;
-  color: #ccc;
+  color: #ddd;
 }
 
 li.achievement.highlight h3 {
