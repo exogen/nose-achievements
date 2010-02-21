@@ -2,3 +2,8 @@ Enable with --with-achievements.
 
 See the list of achievements at: http://exogen.github.com/nose-achievements/
 
+Wanna enable them all the time? Use this setup.cfg:
+
+  [nosetests]
+  with-achievements=1
+
