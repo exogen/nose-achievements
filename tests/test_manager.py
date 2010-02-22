@@ -10,7 +10,6 @@ from helpers import AlwaysUnlockedAchievement
 
 class TestManager(unittest.TestCase):
     def setUp(self):
-        import minimock
         self.achievements = [AlwaysUnlockedAchievement()]
         self.manager = AchievementManager(self.achievements * 2)
 

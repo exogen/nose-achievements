@@ -44,9 +44,11 @@ class AchievementsPlugin(Plugin):
             try:
                 data_file = open(self.data_filename, 'rb')
             except IOError:
-                pass
+                log.debug("Failed to read achievement data from %s",
+                          self.data_filename)
             else:
                 data = AchievementData.load(data_file)
+                data_file.close()
                 history = data.pop('history', [])
                 history.append(data)
                 del history[-10:]
@@ -83,8 +85,14 @@ class AchievementsPlugin(Plugin):
             achievement.finalize(self.data, result)
 
         if self.data_filename:
-            data_file = open(self.data_filename, 'w')
-            self.data.save(data_file)
+            try:
+                data_file = open(self.data_filename, 'wb')
+            except IOError:
+                log.error("Failed to write achievement data to %s (I/O error)",
+                          self.data_filename)
+            else:
+                self.data.save(data_file)
+                data_file.close()
 
         output_stream = codecs.getwriter('utf-8')(self.output_stream)
         for achievement in self.data['achievements.new']:
