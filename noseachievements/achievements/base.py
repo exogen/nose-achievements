@@ -13,7 +13,7 @@ class Achievement(object):
     subtitle = None
     message = None
 
-    def configure(self, data, options, conf):
+    def configure(self, options, conf):
         pass
     
     def finalize(self, data, result):

@@ -9,6 +9,7 @@ from noseachievements.achievements.base import Achievement
 
 
 class NightShift(Achievement):
+    key = 'builtin:night-shift'
     title = "Night Shift"
     message = "Don't you think it's getting a bit late?"
     template = u"""
@@ -30,6 +31,7 @@ class NightShift(Achievement):
             data.unlock(self)
 
 class Punctuality(Achievement):
+    key = 'builtin:punctuality'
     title = "Punctuality"
 
     punctual_start = time(8, 59)
@@ -43,6 +45,7 @@ class Punctuality(Achievement):
             data.unlock(self)
 
 class InstantFeedback(Achievement):
+    key = 'builtin:instant-feedback'
     title = "Instant Feedback"
 
     def finalize(self, data, result):
@@ -51,6 +54,7 @@ class InstantFeedback(Achievement):
             data.unlock(self)
 
 class CoffeeBreak(Achievement):
+    key = 'builtin:coffee-break'
     title = "Coffee Break"
     template = u"""
           (
@@ -68,6 +72,7 @@ class CoffeeBreak(Achievement):
             data.unlock(self)
 
 class TakeAWalk(Achievement):
+    key = 'builtin:take-a-walk'
     title = "Take a Walk"
 
     def finalize(self, data, result):
@@ -76,6 +81,7 @@ class TakeAWalk(Achievement):
             data.unlock(self)
 
 class TakeANap(Achievement):
+    key = 'builtin:take-a-nap'
     title = "Take a Nap"
 
     def finalize(self, data, result):
@@ -84,6 +90,7 @@ class TakeANap(Achievement):
             data.unlock(self)
 
 class TakeAVacation(Achievement):
+    key = 'builtin:take-a-vacation'
     title = "Take a Vacation"
 
     def finalize(self, data, result):
@@ -92,6 +99,7 @@ class TakeAVacation(Achievement):
             data.unlock(self)
 
 class CompleteFailure(Achievement):
+    key = 'builtin:complete-failure'
     title = "Complete Failure"
 
     def finalize(self, data, result):
@@ -100,6 +108,7 @@ class CompleteFailure(Achievement):
             data.unlock(self)
 
 class EpicFail(Achievement):
+    key = 'builtin:epic-fail'
     title = "Epic Fail"
 
     def finalize(self, data, result):
@@ -108,6 +117,7 @@ class EpicFail(Achievement):
             data.unlock(self)
 
 class MinorLetdown(Achievement):
+    key = 'builtin:minor-letdown'
     title = "Minor Letdown"
     
     def finalize(self, data, result):
@@ -115,6 +125,7 @@ class MinorLetdown(Achievement):
             data.unlock(self)
 
 class MajorLetdown(Achievement):
+    key = 'builtin:major-letdown'
     title = "Major Letdown"
 
     def finalize(self, data, result):
@@ -122,6 +133,7 @@ class MajorLetdown(Achievement):
             data.unlock(self)
 
 class HappyEnding(Achievement):
+    key = 'builtin:happy-ending'
     title = "Happy Ending"
 
     def finalize(self, data, result):
@@ -129,6 +141,7 @@ class HappyEnding(Achievement):
             data.unlock(self)
 
 class FullOfDots(Achievement):
+    key = 'builtin:my-god-its-full-of-dots'
     title = "My God, It's Full of Dots"
 
     def finalize(self, data, result):
@@ -137,6 +150,7 @@ class FullOfDots(Achievement):
             data.unlock(self)
 
 class MockingMe(Achievement):
+    key = 'builtin:mocking-me'
     title = "Are You Mocking Me?"
     mocking_modules = ['mock', 'mocker', 'pmock', 'dingus', 'mox', 'ludibrio',
                        'minimock', 'mocktest', 'mocky', 'plone.mocktestcase',
@@ -149,6 +163,7 @@ class MockingMe(Achievement):
                 break
 
 class GreatExpectations(Achievement):
+    key = 'builtin:great-expectations'
     title = "Great Expectations"
 
     def finalize(self, data, result):
@@ -156,6 +171,7 @@ class GreatExpectations(Achievement):
             data.unlock(self)
 
 class ToUnderstandRecursion(Achievement):
+    key = 'builtin:to-understand-recursion'
     title = "To Understand Recursion..."
 
     def finalize(self, data, result):
@@ -166,6 +182,7 @@ class ToUnderstandRecursion(Achievement):
                 break
 
 class SausageFingers(Achievement):
+    key = 'builtin:sausage-fingers'
     title = "Sausage Fingers"
 
     def finalize(self, data, result):
@@ -177,6 +194,7 @@ class SausageFingers(Achievement):
             data.unlock(self)
 
 class CodeCoverage(Achievement):
+    key = 'builtin:100-code-coverage'
     template = u"""
             .
          .cd'b;
@@ -194,7 +212,7 @@ class CodeCoverage(Achievement):
 
     title = "100% Code Coverage"
 
-    def configure(self, data, options, conf):
+    def configure(self, options, conf):
         try:
             import coverage
         except ImportError:

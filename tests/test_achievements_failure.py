@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from noseachievements.achievements.default import CompleteFailure, EpicFail, \
-    MinorLetdown, MajorLetdown, HappyEnding
+from noseachievements.achievements.builtin import (CompleteFailure, EpicFail,
+                                                   MinorLetdown, MajorLetdown,
+                                                   HappyEnding)
 
 from helpers import PASS, FAIL, ERROR, TestPlugin
 

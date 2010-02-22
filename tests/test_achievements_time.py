@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime
 
-from noseachievements.achievements.default import NightShift, Punctuality
+from noseachievements.achievements.builtin import NightShift, Punctuality
 
 from helpers import TestPlugin, PASS, FAIL, ERROR
 

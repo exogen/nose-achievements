@@ -21,20 +21,21 @@ ERROR = unittest.FunctionTestCase(error_func)
 
 class TestPlugin(PluginTester, unittest.TestCase):
     activate = '--with-achievements'
+    args = ['--achievements-file=']
     tests = [PASS]
     data = None
     achievements = []
 
     def setUp(self):
-        self.plugin = AchievementsPlugin(self.achievements, self.data,
-                                         save_file=None)
+        self.plugin = AchievementsPlugin(self.achievements, self.data)
         self.plugins = [self.plugin]
         PluginTester.setUp(self)
 
     def makeSuite(self):
-        return unittest.TestSuite(self.tests)
+        return self.tests
 
 class AlwaysUnlockedAchievement(Achievement):
+    key = 'test:always-unlocked'
     title = "Test Achievement"
     subtitle = "Test Subtitle"
     message = "Test Message"

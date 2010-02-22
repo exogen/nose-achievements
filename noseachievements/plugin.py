@@ -1,45 +1,65 @@
+import logging
 import codecs
 from datetime import datetime
 
 from nose.plugins import Plugin
 
 from noseachievements.data import AchievementData
-from noseachievements.achievements import DEFAULT_ACHIEVEMENTS
+from noseachievements.manager import AchievementManager, default_manager
+
+
+log = logging.getLogger(__name__)
 
 
 class AchievementsPlugin(Plugin):
     name = 'achievements'
-    filename_env = 'ACHIEVEMENTS_FILE'
     score = -1000
+    default_filename = '.achievements'
 
-    def __init__(self, achievements=None, data=None,
-                 save_file='.achievements'):
+    def __init__(self, achievements=default_manager, data=None):
         Plugin.__init__(self)
-        if data is None:
-            data = AchievementData()
-        elif not isinstance(data, AchievementData):
-            data = AchievementData(data)
+        if callable(achievements):
+            achievements = achievements()
         self.achievements = achievements
-        self.data = data
-        self.save_file = save_file
+        self.data = AchievementData(data or {})
 
     def options(self, parser, env):
         Plugin.options(self, parser, env)
+        parser.add_option('--achievements-file', action='store',
+            default=env.get('ACHIEVEMENTS_FILE', self.default_filename),
+            metavar='FILE', dest='data_filename')
     
     def configure(self, options, conf):
         Plugin.configure(self, options, conf)
-        if self.achievements is None:
-            self.achievements = list(DEFAULT_ACHIEVEMENTS)
+
+        self.data_filename = options.data_filename or None
+
+        if isinstance(self.achievements, AchievementManager):
+            self.achievements.load()
+        for achievement in self.achievements:
+            achievement.configure(options, conf)
+
+    def begin(self):
+        if self.data_filename:
+            try:
+                data_file = open(self.data_filename, 'rb')
+            except IOError:
+                pass
+            else:
+                data = AchievementData.load(data_file)
+                history = data.pop('history', [])
+                history.append(data)
+                del history[-10:]
+                self.data.setdefault('history', history)
+                self.data.setdefault('achievements.unlocked',
+                                     data.get('achievements.unlocked', {}))
 
         self.data.setdefault('time.start', datetime.now())
-        self.data.setdefault('achievements.pending', [])
         self.data.setdefault('achievements.unlocked', {})
+        self.data.setdefault('achievements.new', [])
         self.data.setdefault('result.string', '')
         self.data.setdefault('result.errors.exc_info', [])
         self.data.setdefault('result.failures.exc_info', [])
-        
-        for achievement in self.achievements:
-            achievement.configure(self.data, options, conf)
 
     def formatError(self, test, err):
         self.data['result.string'] += 'E'
@@ -59,18 +79,14 @@ class AchievementsPlugin(Plugin):
     def finalize(self, result):
         self.data.setdefault('time.finish', datetime.now())
         
-
         for achievement in self.achievements:
             achievement.finalize(self.data, result)
 
-        if self.save_file is not None:
-            if isinstance(self.save_file, basestring):
-                save_file = open(self.save_file, 'w')
-            else:
-                save_file = self.save_file
-            self.data.save(save_file)
+        if self.data_filename:
+            data_file = open(self.data_filename, 'w')
+            self.data.save(data_file)
 
         output_stream = codecs.getwriter('utf-8')(self.output_stream)
-        for achievement in self.data['achievements.pending']:
+        for achievement in self.data['achievements.new']:
             output_stream.write(achievement.announcement() + '\n')
 

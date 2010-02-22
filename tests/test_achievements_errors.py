@@ -1,7 +1,7 @@
 import unittest
 
-from noseachievements.achievements.default import ToUnderstandRecursion, \
-    SausageFingers
+from noseachievements.achievements.builtin import (ToUnderstandRecursion,
+                                                   SausageFingers)
 
 from helpers import TestPlugin, PASS, FAIL, ERROR
 
