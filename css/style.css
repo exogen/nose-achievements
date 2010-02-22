@@ -8,37 +8,66 @@ body {
 }
 
 #content {
-    position: relative;
     margin: 0 auto;
     width: 600px;
     padding: 20px 200px 20px 100px;
 }
 
-#trophy {
-  position: absolute;
-  top: 15px;
-  right: 135px;
+#header {
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
 }
 
-h1 {
+#trophy {
+    position: absolute;
+    top: 0;
+    right: 50px;
+}
+
+#header h1 {
+  font-size: 24px;
+  margin-left: 50px;
+  font-weight: bold;
+  color: #c2c2cc;
+}
+
+#header h2 {
+  margin-left: 50px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+#header h2 a {
+  background-color: #596;
+  color: #fff;
+  text-decoration: none;
+  padding: 2px 8px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+}
+
+#header h2 a:hover {
+  background-color: #374;
+}
+
+#content h1 {
   font-size: 24px;
   font-weight: normal;
-  text-align: right;
-  color: #aab;
+  color: #a2a2ac;
   margin: 15px 0 15px 100px;
-  padding-right: 50px;
 }
 
-h1 a {
+#content h1 a {
   color: inherit;
   text-decoration: none;
 }
 
-h1 a:hover {
+#content h1 a:hover {
   text-decoration: underline;
 }
 
-h2 {
+#content h2 {
   float: left;
   clear: left;
   width: 90px;
