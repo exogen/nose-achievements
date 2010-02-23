@@ -18,6 +18,8 @@ class AchievementManager(object):
         return len(self.achievements)
     
     def add_achievement(self, achievement):
+        if callable(achievement):
+            achievement = achievement()
         self.achievements[achievement.key] = achievement
 
     def add_achievements(self, achievements):

@@ -1,4 +1,5 @@
 import unittest
+from cStringIO import StringIO
 
 from nose.plugins.plugintest import PluginTester
 
@@ -14,6 +15,12 @@ def fail_func():
 
 def error_func():
     raise Exception
+
+def error_test(exception):
+    def error_func():
+        raise exception
+    return unittest.FunctionTestCase(error_func)
+error_test.__test__ = False
 
 PASS = unittest.FunctionTestCase(pass_func)
 FAIL = unittest.FunctionTestCase(fail_func)
@@ -33,6 +40,16 @@ class TestPlugin(PluginTester, unittest.TestCase):
 
     def makeSuite(self):
         return self.tests
+
+    def test_data_is_serializable(self):
+        stream = StringIO()
+        self.plugin.data.save(stream)
+
+class NeverUnlockedAchievement(Achievement):
+    key = 'test:never-unlocked'
+    title = "Test Achievement"
+    subtitle = "Test Subtitle"
+    message = "Test Message"
 
 class AlwaysUnlockedAchievement(Achievement):
     key = 'test:always-unlocked'

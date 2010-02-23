@@ -1,5 +1,6 @@
 import logging
 import codecs
+from traceback import format_exception
 from datetime import datetime
 
 from nose.plugins import Plugin
@@ -20,6 +21,8 @@ class AchievementsPlugin(Plugin):
         Plugin.__init__(self)
         if callable(achievements):
             achievements = achievements()
+        if not isinstance(achievements, AchievementManager):
+            achievements = AchievementManager(achievements)
         self.achievements = achievements
         self.data = AchievementData(data or {})
 
@@ -34,8 +37,7 @@ class AchievementsPlugin(Plugin):
 
         self.data_filename = options.data_filename or None
 
-        if isinstance(self.achievements, AchievementManager):
-            self.achievements.load()
+        self.achievements.load()
         for achievement in self.achievements:
             achievement.configure(options, conf)
 
@@ -60,16 +62,20 @@ class AchievementsPlugin(Plugin):
         self.data.setdefault('achievements.unlocked', {})
         self.data.setdefault('achievements.new', [])
         self.data.setdefault('result.string', '')
-        self.data.setdefault('result.errors.exc_info', [])
-        self.data.setdefault('result.failures.exc_info', [])
+        self.data.setdefault('result.errors', [])
+        self.data.setdefault('result.failures', [])
 
-    def formatError(self, test, err):
+    def addError(self, test, err):
+        type_, value, traceback = err
+        traceback_str = format_exception(type_, value, traceback) 
         self.data['result.string'] += 'E'
-        self.data['result.errors.exc_info'].append(err)
+        self.data['result.errors'].append((type_, value, traceback_str))
 
-    def formatFailure(self, test, err):
+    def addFailure(self, test, err):
+        type_, value, traceback = err
+        traceback_str = format_exception(type_, value, traceback) 
         self.data['result.string'] += 'F'
-        self.data['result.failures.exc_info'].append(err)
+        self.data['result.failures'].append((type_, value, traceback_str))
 
     def afterTest(self, test):
         if test.passed is None:

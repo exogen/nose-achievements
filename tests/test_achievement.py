@@ -3,14 +3,13 @@ import unittest
 
 from noseachievements.achievements.base import Achievement
 
-from helpers import PASS, TestPlugin, AlwaysUnlockedAchievement
+from helpers import (PASS, TestPlugin, NeverUnlockedAchievement,
+    AlwaysUnlockedAchievement)
 
 
 class TestAchievement(TestPlugin):
-    def setUp(self):
-        self.achievement = Achievement()
-        self.achievements = [self.achievement]
-        TestPlugin.setUp(self)
+    achievement = NeverUnlockedAchievement()
+    achievements = [achievement]
 
     def test_achievement_is_loaded(self):
         self.assert_(self.achievement in self.plugin.achievements)
@@ -24,9 +23,9 @@ class TestAchievement(TestPlugin):
   /.–==*==–.\\
  ( |      #| ) Achievement unlocked!
   ):      ':(
-    `·…_…·´    
-      `H´      
-     _.U._     
+    `·…_…·´    Test Achievement
+      `H´      Test Subtitle
+     _.U._     Test Message
     [_____]""")
 
 
@@ -37,13 +36,13 @@ class TestUnlockedAchievement(TestPlugin):
         TestPlugin.setUp(self)
 
     def test_achievement_is_printed(self):
-        self.assert_(u"""
+        self.assert_("""
   /.–==*==–.\\
  ( |      #| ) Achievement unlocked!
   ):      ':(
     `·…_…·´    Test Achievement
       `H´      Test Subtitle
      _.U._     Test Message
-    [_____]""".encode('utf-8') in self.output)
+    [_____]""" in self.output)
             
 

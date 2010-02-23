@@ -187,7 +187,7 @@ class SausageFingers(Achievement):
 
     def finalize(self, data, result):
         syntax_errors = set()
-        for type_, value, traceback in data['result.errors.exc_info']:
+        for type_, value, traceback in data['result.errors']:
             if type_ is SyntaxError:
                 syntax_errors.add((value.filename, value.lineno))
         if len(syntax_errors) > 1:
