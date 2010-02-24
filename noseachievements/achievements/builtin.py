@@ -203,13 +203,14 @@ class CodeCoverage(Achievement):
     key = 'builtin:100-code-coverage'
     title = "100% Code Coverage"
     template = u"""
-         ..:':;
-     _  (::',::)
-   .:::. ;: ;:'      %(announcement)s
-  (::,'; ): ;( ,.:,
-   `·:,'.:',::''::)  %(title)s
-     )::'; ;',:::·   %(subtitle)s
-   ·:::::, ,::(      %(message)s
+            .
+         .cd'b;
+     _  (xk',kx)
+   ckko. lk kd'      %(announcement)s
+  (kk.'; )k k( ,dl,
+   `·q.'.k',k''xkk)  %(title)s
+     )k.'k k',xkk·   %(subtitle)s
+   ·dxkkp, ,xk(      %(message)s
     `·^·´'|·^·´
           |"""
 
