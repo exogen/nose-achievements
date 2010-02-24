@@ -7,6 +7,12 @@ from cStringIO import StringIO
 
 from noseachievements.achievements.base import Achievement
 
+__all__ = ['NightShift', 'Punctuality', 'InstantFeedback', 'CoffeeBreak',
+           'TakeAWalk', 'FullOfDots', 'MockingMe', 'GreatExpectations',
+           'CompleteFailure', 'EpicFail', 'MinorLetdown', 'MajorLetdown',
+           'HappyEnding', 'ToUnderstandRecursion', 'TakeANap',
+           'TakeAVacation', 'SausageFingers', 'CodeCoverage']
+
 
 class NightShift(Achievement):
     key = 'builtin:night-shift'
@@ -195,35 +201,30 @@ class SausageFingers(Achievement):
 
 class CodeCoverage(Achievement):
     key = 'builtin:100-code-coverage'
-    template = u"""
-            .
-         .cd'b;
-     _  (xk',ko)
-   ckko. lk kd'      %(announcement)s
-  (kkkkl )k k( ,dl,
-   `qkkk.k',x'xxkk)  %(title)s
-     )xkxk kxxxxo:   %(subtitle)s
-   ·dxkkxx kkk(      %(message)s
-    `·^·´'|·^˘·´             
-          |                  
-"""
-
-
-
     title = "100% Code Coverage"
+    template = u"""
+         ..:':;
+     _  (::',::)
+   .:::. ;: ;:'      %(announcement)s
+  (::,'; ): ;( ,.:,
+   `·:,'.:',::''::)  %(title)s
+     )::'; ;',:::·   %(subtitle)s
+   ·:::::, ,::(      %(message)s
+    `·^·´'|·^·´
+          |"""
 
     def configure(self, options, conf):
         try:
-            import coverage
+            from coverage import coverage
         except ImportError:
             self.enabled = False
         else:
-            self.coverage_module = coverage
+            self.coverage = coverage
             self.enabled = True
 
     def finalize(self, data, result):
-        if result.wasSuccessful() and self.enabled:
-            coverage = self.coverage_module.coverage()
+        if self.enabled and data['result.success']:
+            coverage = self.coverage()
             coverage.load()
             report = StringIO()
             coverage.report(file=report)

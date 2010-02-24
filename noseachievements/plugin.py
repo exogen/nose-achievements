@@ -6,7 +6,9 @@ from datetime import datetime
 from nose.plugins import Plugin
 
 from noseachievements.data import AchievementData
-from noseachievements.manager import AchievementManager, default_manager
+from noseachievements.manager import (AchievementManager,
+                                      FilterAchievementManager,
+                                      default_manager)
 
 
 log = logging.getLogger(__name__)
@@ -16,6 +18,7 @@ class AchievementsPlugin(Plugin):
     name = 'achievements'
     score = -1000
     default_filename = '.achievements'
+    default_achievements = 'all'
 
     def __init__(self, achievements=default_manager, data=None):
         Plugin.__init__(self)
@@ -31,11 +34,18 @@ class AchievementsPlugin(Plugin):
         parser.add_option('--achievements-file', action='store',
             default=env.get('ACHIEVEMENTS_FILE', self.default_filename),
             metavar='FILE', dest='data_filename')
+        parser.add_option('--achievements', action='store',
+            default=env.get('ACHIEVEMENTS', self.default_achievements),
+            metavar='FILTER', dest='achievements')
     
     def configure(self, options, conf):
         Plugin.configure(self, options, conf)
 
         self.data_filename = options.data_filename or None
+
+        if options.achievements is not None:
+            self.achievements = FilterAchievementManager(options.achievements,
+                                                         self.achievements)
 
         self.achievements.load()
         for achievement in self.achievements:
@@ -86,6 +96,8 @@ class AchievementsPlugin(Plugin):
 
     def finalize(self, result):
         self.data.setdefault('time.finish', datetime.now())
+        self.data.setdefault('result.tests', result.testsRun)
+        self.data.setdefault('result.success', result.wasSuccessful())
         
         for achievement in self.achievements:
             achievement.finalize(self.data, result)

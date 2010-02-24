@@ -1,3 +1,4 @@
+import noseachievements.achievements.builtin
 from noseachievements.achievements.base import Achievement
 
 
@@ -32,6 +33,9 @@ class AchievementManager(object):
 class BuiltinAchievementManager(AchievementManager):
     def load(self):
         AchievementManager.load(self)
+        for name in noseachievements.achievements.builtin.__all__:
+            achievement = getattr(noseachievements.achievements.builtin, name)
+            self.add_achievement(achievement)
 
 class EntryPointAchievementManager(AchievementManager):
     entry_point = 'nose.achievements'
@@ -53,17 +57,39 @@ class EntryPointAchievementManager(AchievementManager):
 try:
     from pkg_resources import iter_entry_points
 except ImportError:
-    default_manager = BuiltinAchievementManager()
+    default_manager = BuiltinAchievementManager
 else:
-    default_manager = EntryPointAchievementManager()
+    default_manager = EntryPointAchievementManager
 
-class FilteredAchievementManager(AchievementManager):
-    def __init__(self, keys, manager=default_manager):
+class FilterAchievementManager(AchievementManager):
+    def __init__(self, keys, manager=default_manager, default='all'):
         AchievementManager.__init__(self)
-        if isinstance(keys, basestring):
-            keys = keys.split(',')
-        self.keys = keys
+        self.include_keys = set()
+        self.exclude_keys = set()
+        self.add_filter(keys)
+        if not self.include_keys and default is not None:
+            self.add_filter(default)
         if callable(manager):
             manager = manager()
         self.manager = manager
+
+    def add_filter(self, keys):
+        if isinstance(keys, basestring):
+            keys = keys.split(',')
+        for key in keys:
+            if key.startswith('-'):
+                self.exclude_keys.add(key[1:])
+            else:
+                self.include_keys.add(key)
+
+    def load(self):
+        self.manager.load()
+        for achievement in self.manager:
+            key = achievement.key
+            group, name = key.split(':', 1)
+            if ('all' in self.include_keys or key in self.include_keys or
+                group in self.include_keys):
+                if (key not in self.exclude_keys and
+                    group not in self.exclude_keys):
+                    self.add_achievement(achievement)
 

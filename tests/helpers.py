@@ -2,6 +2,7 @@ import unittest
 from cStringIO import StringIO
 
 from nose.plugins.plugintest import PluginTester
+from nose.plugins.skip import SkipTest
 
 from noseachievements.achievements.base import Achievement
 from noseachievements.plugin import AchievementsPlugin
@@ -42,8 +43,10 @@ class TestPlugin(PluginTester, unittest.TestCase):
         return self.tests
 
     def test_data_is_serializable(self):
-        stream = StringIO()
-        self.plugin.data.save(stream)
+        if self.plugin.enabled:
+            stream = StringIO()
+            self.plugin.data.save(stream)
+            self.assertTrue(stream.getvalue())
 
 class NeverUnlockedAchievement(Achievement):
     key = 'test:never-unlocked'
