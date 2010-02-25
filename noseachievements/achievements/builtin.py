@@ -160,7 +160,7 @@ class MockingMe(Achievement):
     title = "Are You Mocking Me?"
     mocking_modules = ['mock', 'mocker', 'pmock', 'dingus', 'mox', 'ludibrio',
                        'minimock', 'mocktest', 'mocky', 'plone.mocktestcase',
-                       'pymock']
+                       'pymock', 'fudge']
 
     def finalize(self, data, result):
         for module in self.mocking_modules:
