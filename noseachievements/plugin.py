@@ -82,15 +82,17 @@ class AchievementsPlugin(Plugin):
 
     def addError(self, test, err):
         type_, value, traceback = err
-        traceback_str = format_exception(type_, value, traceback) 
+        exc_string = "".join(format_exception(type_, value, traceback))
         self.data['result.string'] += 'E'
-        self.data['result.errors'].append((type_, value, traceback_str))
+        self.data['result.errors'].append((test.address(),
+                                           (type_, value, exc_string)))
 
     def addFailure(self, test, err):
         type_, value, traceback = err
-        traceback_str = format_exception(type_, value, traceback) 
+        exc_string = "".join(format_exception(type_, value, traceback))
         self.data['result.string'] += 'F'
-        self.data['result.failures'].append((type_, value, traceback_str))
+        self.data['result.failures'].append((test.address(),
+                                             (type_, value, exc_string)))
 
     def afterTest(self, test):
         if test.passed is None:

@@ -31,7 +31,7 @@ class NightShift(Achievement):
     shift_end = time(5, 0)
 
     def finalize(self, data, result):
-        if (result.testsRun > 0 and result.wasSuccessful() and
+        if (data['result.tests'] > 0 and data['result.success'] and
             self.shift_start <= data['time.start'].time() < self.shift_end and
             self.shift_start <= data['time.finish'].time() < self.shift_end):
             data.unlock(self)
@@ -44,7 +44,7 @@ class Punctuality(Achievement):
     punctual_end = time(9, 1)
 
     def finalize(self, data, result):
-        if (result.testsRun > 0 and result.wasSuccessful() and
+        if (data['result.tests'] > 0 and data['result.success'] and
             (self.punctual_start <= data['time.start'].time() <
              self.punctual_end or self.punctual_start <=
              data['time.finish'].time() < self.punctual_end)):
@@ -56,7 +56,7 @@ class InstantFeedback(Achievement):
 
     def finalize(self, data, result):
         duration = data['time.finish'] - data['time.start']
-        if result.testsRun >= 50 and duration < timedelta(seconds=1):
+        if data['result.tests'] >= 50 and duration < timedelta(seconds=1):
             data.unlock(self)
 
 class CoffeeBreak(Achievement):
@@ -109,8 +109,8 @@ class CompleteFailure(Achievement):
     title = "Complete Failure"
 
     def finalize(self, data, result):
-        if (50 <= result.testsRun <= 999 and
-            result.testsRun == len(result.failures)):
+        if (50 <= data['result.tests'] <= 999 and
+            data['result.tests'] == len(data['result.failures'])):
             data.unlock(self)
 
 class EpicFail(Achievement):
@@ -118,8 +118,8 @@ class EpicFail(Achievement):
     title = "Epic Fail"
 
     def finalize(self, data, result):
-        if (result.testsRun >= 1000 and
-            result.testsRun == len(result.failures)):
+        if (data['result.tests'] >= 1000 and
+            data['result.tests'] == len(data['result.failures'])):
             data.unlock(self)
 
 class MinorLetdown(Achievement):
@@ -151,8 +151,7 @@ class FullOfDots(Achievement):
     title = "My God, It's Full of Dots"
 
     def finalize(self, data, result):
-        passing = result.testsRun - len(result.failures) - len(result.errors)
-        if passing >= 2001:
+        if data['result.string'].count('.') >= 2001:
             data.unlock(self)
 
 class MockingMe(Achievement):
@@ -181,9 +180,9 @@ class ToUnderstandRecursion(Achievement):
     title = "To Understand Recursion..."
 
     def finalize(self, data, result):
-        for test, traceback in result.errors:
-            if traceback.endswith("RuntimeError: maximum recursion depth "
-                                  "exceeded\n"):
+        for test, (type_, value, exc_string) in data['result.errors']:
+            if exc_string.endswith("RuntimeError: maximum recursion depth "
+                                   "exceeded\n"):
                 data.unlock(self)
                 break
 
@@ -193,7 +192,7 @@ class SausageFingers(Achievement):
 
     def finalize(self, data, result):
         syntax_errors = set()
-        for type_, value, traceback in data['result.errors']:
+        for test, (type_, value, exc_string) in data['result.errors']:
             if type_ is SyntaxError:
                 syntax_errors.add((value.filename, value.lineno))
         if len(syntax_errors) > 1:
