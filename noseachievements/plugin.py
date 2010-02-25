@@ -78,6 +78,7 @@ class AchievementsPlugin(Plugin):
         self.data.setdefault('history', [])
         self.data.setdefault('achievements.unlocked', {})
         self.data.setdefault('achievements.new', [])
+        self.data.setdefault('result.tests', [])
         self.data.setdefault('result.string', '')
         self.data.setdefault('result.errors', [])
         self.data.setdefault('result.failures', [])
@@ -97,16 +98,17 @@ class AchievementsPlugin(Plugin):
         self.data['result.failures'].append((test.address(),
                                              (type_, value, exc_string)))
 
+    def addSuccess(self, test):
+        self.data['result.string'] += '.'
+
     def afterTest(self, test):
-        if test.passed is None:
-            self.data['result.string'] += '.'
+        self.data['result.tests'].append(test.address())
 
     def setOutputStream(self, stream):
         self.output_stream = stream
 
     def finalize(self, result):
         self.data.setdefault('time.finish', datetime.now())
-        self.data.setdefault('result.tests', result.testsRun)
         self.data.setdefault('result.success', result.wasSuccessful())
         
         for achievement in self.achievements:

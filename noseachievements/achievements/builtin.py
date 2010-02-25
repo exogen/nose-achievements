@@ -31,7 +31,7 @@ class NightShift(Achievement):
     shift_end = time(5, 0)
 
     def finalize(self, data, result):
-        if (data['result.tests'] > 0 and data['result.success'] and
+        if (data['result.tests'] and data['result.success'] and
             data['history'] and
             not data['history'][-1].get('result.success', True) and
             self.shift_start <= data['time.start'].time() < self.shift_end and
@@ -46,7 +46,7 @@ class Punctuality(Achievement):
     punctual_end = time(9, 1)
 
     def finalize(self, data, result):
-        if (data['result.tests'] > 0 and data['result.success'] and
+        if (data['result.tests'] and data['result.success'] and
             data['history'] and
             not data['history'][-1].get('result.success', True) and
             (self.punctual_start <= data['time.start'].time() <
@@ -60,7 +60,7 @@ class InstantFeedback(Achievement):
 
     def finalize(self, data, result):
         duration = data['time.finish'] - data['time.start']
-        if data['result.tests'] >= 50 and duration < timedelta(seconds=1):
+        if len(data['result.tests']) >= 50 and duration < timedelta(seconds=1):
             data.unlock(self)
 
 class CoffeeBreak(Achievement):
@@ -113,8 +113,8 @@ class CompleteFailure(Achievement):
     title = "Complete Failure"
 
     def finalize(self, data, result):
-        if (50 <= data['result.tests'] <= 999 and
-            data['result.tests'] == len(data['result.failures'])):
+        if (50 <= len(data['result.tests']) <= 999 and
+            len(data['result.tests']) == len(data['result.failures'])):
             data.unlock(self)
 
 class EpicFail(Achievement):
@@ -122,8 +122,8 @@ class EpicFail(Achievement):
     title = "Epic Fail"
 
     def finalize(self, data, result):
-        if (data['result.tests'] >= 1000 and
-            data['result.tests'] == len(data['result.failures'])):
+        if (len(data['result.tests']) >= 1000 and
+            len(data['result.tests']) == len(data['result.failures'])):
             data.unlock(self)
 
 class MinorLetdown(Achievement):
