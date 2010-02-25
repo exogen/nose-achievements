@@ -66,6 +66,8 @@ class AchievementsPlugin(Plugin):
             else:
                 data = AchievementData.load(data_file)
                 data_file.close()
+                log.info("Loaded achievement data from %s",
+                         self.data_filename)
                 history = data.pop('history', [])
                 history.append(data)
                 del history[:-10]
@@ -117,6 +119,7 @@ class AchievementsPlugin(Plugin):
                 log.error("Failed to write achievement data to %s (I/O error)",
                           self.data_filename)
             else:
+                log.info("Saving achievement data to %s", self.data_filename)
                 self.data.save(data_file)
                 data_file.close()
 
