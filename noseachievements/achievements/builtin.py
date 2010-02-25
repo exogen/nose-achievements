@@ -224,13 +224,14 @@ class CodeCoverage(Achievement):
           |"""
 
     def configure(self, options, conf):
-        try:
-            from coverage import coverage
-        except ImportError:
-            self.enabled = False
-        else:
-            self.coverage = coverage
-            self.enabled = True
+        self.enabled = options.enable_plugin_coverage
+        if self.enabled:
+            try:
+                from coverage import coverage
+            except ImportError:
+                self.enabled = False
+            else:
+                self.coverage = coverage
 
     def finalize(self, data, result):
         if self.enabled and data['result.success']:

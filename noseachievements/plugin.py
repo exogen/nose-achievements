@@ -110,7 +110,8 @@ class AchievementsPlugin(Plugin):
         self.data.setdefault('result.success', result.wasSuccessful())
         
         for achievement in self.achievements:
-            achievement.finalize(self.data, result)
+            if achievement.key not in self.data['achievements.unlocked']:
+                achievement.finalize(self.data, result)
 
         if self.data_filename:
             try:
