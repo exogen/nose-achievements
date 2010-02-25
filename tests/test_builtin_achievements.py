@@ -4,7 +4,9 @@ from datetime import datetime
 
 from noseachievements.achievements.builtin import (CompleteFailure, EpicFail,
     MinorLetdown, MajorLetdown, HappyEnding, NightShift, Punctuality,
-    SausageFingers, ToUnderstandRecursion)
+    SausageFingers, ToUnderstandRecursion, InstantFeedback, CoffeeBreak,
+    TakeAWalk, TakeANap, TakeAVacation, MockingMe, FullOfDots,
+    GreatExpectations)
 
 from helpers import PASS, FAIL, ERROR, TestPlugin, error_test
 
@@ -133,4 +135,146 @@ class TestSausageFingersAchievementUnlocked(TestPlugin):
     def test_achievement_is_unlocked(self):
         self.assert_("Achievement unlocked!" in self.output and
                      "Sausage Fingers" in self.output)
+
+class TestInstantFeedbackAchievementNotEnoughTests(TestPlugin):
+    achievements = [InstantFeedback]
+    tests = [PASS] * 49
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 0, 0, 1)}
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" not in self.output)
+
+class TestInstantFeedbackAchievementTooSlow(TestPlugin):
+    achievements = [InstantFeedback]
+    tests = [PASS] * 49
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 0, 1, 0)}
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" not in self.output)
+
+class TestInstantFeedbackAchievementUnlocked(TestPlugin):
+    achievements = [InstantFeedback]
+    tests = [ERROR] * 20 + [FAIL] * 20 + [PASS] * 10
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 0, 0, 1)}
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Instant Feedback" in self.output)
+
+class TestCoffeeBreakAchievement(TestPlugin):
+    achievements = [CoffeeBreak]
+    tests = [PASS]
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 4, 59)}
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" not in self.output)
+
+class TestCoffeeBreakAchievementUnlocked(TestPlugin):
+    achievements = [CoffeeBreak]
+    tests = [ERROR]
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 5, 0)}
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Coffee Break" in self.output)
+
+class TestTakeAWalkAchievementUnlocked(TestPlugin):
+    achievements = [TakeAWalk]
+    tests = [ERROR]
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 15, 0)}
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Take a Walk" in self.output)
+
+class TestTakeANapAchievementUnlocked(TestPlugin):
+    achievements = [TakeANap]
+    tests = [ERROR]
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 1, 0, 0)}
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Take a Nap" in self.output)
+
+class TestTakeAVacationAchievementUnlocked(TestPlugin):
+    achievements = [TakeAVacation]
+    tests = [ERROR]
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 4, 0, 0, 0)}
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Take a Vacation" in self.output)
+
+class TestMinorLetdownAchievementUnlocked(TestPlugin):
+    achievements = [MinorLetdown]
+    tests = [PASS] * 9 + [FAIL]
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Minor Letdown" in self.output)
+
+class TestMajorLetdownAchievementUnlocked(TestPlugin):
+    achievements = [MajorLetdown]
+    tests = [PASS] * 99 + [FAIL]
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Major Letdown" in self.output)
+
+class TestHappyEndingAchievementUnlocked(TestPlugin):
+    achievements = [HappyEnding]
+    tests = [FAIL] * 9 + [PASS]
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Happy Ending" in self.output)
+
+class TestMockingMeAchievement(TestPlugin):
+    achievements = [MockingMe({'foo': None, 'bar': None})]
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" not in self.output)
+
+class TestMockingMeAchievementUnlocked(TestPlugin):
+    achievements = [MockingMe({'dingus': None})]
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Are You Mocking Me?" in self.output)
+
+class TestFullOfDotsAchievement(TestPlugin):
+    achievements = [FullOfDots]
+    tests = [PASS] * 2000
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" not in self.output)
+
+class TestFullOfDotsAchievementUnlocked(TestPlugin):
+    achievements = [FullOfDots]
+    tests = [FAIL] + [PASS] * 2001
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "My God, It's Full of Dots" in self.output)
+
+class TestGreatExpectationsAchievement(TestPlugin):
+    achievements = [GreatExpectations({'expect': None})]
+
+    def test_achievement_is_locked(self):
+        self.assert_("Achievement unlocked!" not in self.output)
+
+class TestGreatExpectationsAchievementUnlocked(TestPlugin):
+    achievements = [GreatExpectations({'expecter': None})]
+
+    def test_achievement_is_unlocked(self):
+        self.assert_("Achievement unlocked!" in self.output and
+                     "Great Expectations" in self.output)
 

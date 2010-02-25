@@ -161,9 +161,12 @@ class MockingMe(Achievement):
                        'minimock', 'mocktest', 'mocky', 'plone.mocktestcase',
                        'pymock', 'fudge']
 
+    def __init__(self, imported_modules=sys.modules):
+        self.imported_modules = imported_modules
+
     def finalize(self, data, result):
         for module in self.mocking_modules:
-            if module in sys.modules:
+            if module in self.imported_modules:
                 data.unlock(self)
                 break
 
@@ -171,8 +174,11 @@ class GreatExpectations(Achievement):
     key = 'builtin:great-expectations'
     title = "Great Expectations"
 
+    def __init__(self, imported_modules=sys.modules):
+        self.imported_modules = imported_modules
+
     def finalize(self, data, result):
-        if 'expecter' in sys.modules:
+        if 'expecter' in self.imported_modules:
             data.unlock(self)
 
 class ToUnderstandRecursion(Achievement):
