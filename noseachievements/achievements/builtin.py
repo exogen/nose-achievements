@@ -206,12 +206,12 @@ class CodeCoverage(Achievement):
             .
          .cd'b;
      _  (xk',kx)
-   ckko. lk kd'      %(announcement)s
-  (kk.'; )k k( ,dl,
-   `·q.'.k',k''xkk)  %(title)s
-     )k.'k k',xkk·   %(subtitle)s
-   ·dxkkp, ,xk(      %(message)s
-    `·^·´'|·^·´
+   ckko  lk kd/      %(announcement)s
+  (kk.`l_)k k(_,dl,
+   `·q. lk',kp'´dk)  %(title)s
+    _)k.'q k',.d·´   %(subtitle)s
+   ldxkkp, ,xq(_     %(message)s
+    `-^·´u|u^-·´
           |"""
 
     def configure(self, options, conf):
