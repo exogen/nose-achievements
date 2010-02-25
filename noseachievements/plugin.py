@@ -33,10 +33,15 @@ class AchievementsPlugin(Plugin):
         Plugin.options(self, parser, env)
         parser.add_option('--achievements-file', action='store',
             default=env.get('ACHIEVEMENTS_FILE', self.default_filename),
-            metavar='FILE', dest='data_filename')
+            metavar='FILE', dest='data_filename',
+            help="Load and save achievement data in FILE. "
+                 "An empty string will disable loading and saving. "
+                 "[ACHIEVEMENTS_FILE]")
         parser.add_option('--achievements', action='store',
             default=env.get('ACHIEVEMENTS', self.default_achievements),
-            metavar='FILTER', dest='achievements')
+            metavar='FILTER', dest='achievements',
+            help="Select or exclude specific achievements or achievement "
+                 "groups. [ACHIEVEMENTS]")
     
     def configure(self, options, conf):
         Plugin.configure(self, options, conf)
