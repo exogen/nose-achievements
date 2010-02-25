@@ -32,6 +32,8 @@ class NightShift(Achievement):
 
     def finalize(self, data, result):
         if (data['result.tests'] > 0 and data['result.success'] and
+            data['history'] and
+            not data['history'][-1].get('result.success', True) and
             self.shift_start <= data['time.start'].time() < self.shift_end and
             self.shift_start <= data['time.finish'].time() < self.shift_end):
             data.unlock(self)
@@ -45,6 +47,8 @@ class Punctuality(Achievement):
 
     def finalize(self, data, result):
         if (data['result.tests'] > 0 and data['result.success'] and
+            data['history'] and
+            not data['history'][-1].get('result.success', True) and
             (self.punctual_start <= data['time.start'].time() <
              self.punctual_end or self.punctual_start <=
              data['time.finish'].time() < self.punctual_end)):

@@ -29,10 +29,17 @@ class TestNightShiftAchievementErrors(TestNightShiftAchievement):
     data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
             'time.finish': datetime(2010, 1, 1, 0, 0, 0)}
 
+class TestNightShiftAchievementLastPassed(TestNightShiftAchievement):
+    tests = [PASS]
+    data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
+            'time.finish': datetime(2010, 1, 1, 0, 0, 0),
+            'history': [{'result.success': True}]}
+
 class TestNightShiftAchievementUnlocked(TestPlugin):
     achievements = [NightShift]
     data = {'time.start': datetime(2010, 1, 1, 0, 0, 0),
-            'time.finish': datetime(2010, 1, 1, 0, 0, 0)}
+            'time.finish': datetime(2010, 1, 1, 0, 0, 0),
+            'history': [{'result.success': False}]}
 
     def test_achievement_is_unlocked(self):
         self.assert_("Achievement unlocked" in self.output and
@@ -60,7 +67,8 @@ class TestPunctualityAchievementErrors(TestPunctualityAchievement):
 class TestPunctualityAchievementUnlocked(TestPlugin):
     achievements = [Punctuality]
     data = {'time.start': datetime(2010, 1, 1, 9, 0, 0),
-            'time.finish': datetime(2010, 1, 1, 9, 0, 0)}
+            'time.finish': datetime(2010, 1, 1, 9, 0, 0),
+            'history': [{'result.success': False}]}
 
     def test_achievement_is_unlocked(self):
         self.assert_("Achievement unlocked" in self.output and

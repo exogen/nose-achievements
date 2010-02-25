@@ -68,17 +68,18 @@ class AchievementsPlugin(Plugin):
                 data_file.close()
                 history = data.pop('history', [])
                 history.append(data)
-                del history[-10:]
+                del history[:-10]
                 self.data.setdefault('history', history)
                 self.data.setdefault('achievements.unlocked',
                                      data.get('achievements.unlocked', {}))
 
-        self.data.setdefault('time.start', datetime.now())
+        self.data.setdefault('history', [])
         self.data.setdefault('achievements.unlocked', {})
         self.data.setdefault('achievements.new', [])
         self.data.setdefault('result.string', '')
         self.data.setdefault('result.errors', [])
         self.data.setdefault('result.failures', [])
+        self.data.setdefault('time.start', datetime.now())
 
     def addError(self, test, err):
         type_, value, traceback = err
