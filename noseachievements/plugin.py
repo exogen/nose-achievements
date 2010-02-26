@@ -4,6 +4,7 @@ from traceback import format_exception
 from datetime import datetime
 
 from nose.plugins import Plugin
+from nose.util import test_address
 
 from noseachievements.data import AchievementData
 from noseachievements.manager import (AchievementManager,
@@ -88,21 +89,21 @@ class AchievementsPlugin(Plugin):
         type_, value, traceback = err
         exc_string = "".join(format_exception(type_, value, traceback))
         self.data['result.string'] += 'E'
-        self.data['result.errors'].append((test.address(),
+        self.data['result.errors'].append((test_address(test),
                                            (type_, value, exc_string)))
 
     def addFailure(self, test, err):
         type_, value, traceback = err
         exc_string = "".join(format_exception(type_, value, traceback))
         self.data['result.string'] += 'F'
-        self.data['result.failures'].append((test.address(),
+        self.data['result.failures'].append((test_address(test),
                                              (type_, value, exc_string)))
 
     def addSuccess(self, test):
         self.data['result.string'] += '.'
 
     def afterTest(self, test):
-        self.data['result.tests'].append(test.address())
+        self.data['result.tests'].append(test_address(test))
 
     def setOutputStream(self, stream):
         self.output_stream = stream
