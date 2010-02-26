@@ -1,0 +1,6 @@
+Until a stable release is made, nose-achievements must be installed
+from the code repository:
+
+$ git clone git://github.com/exogen/nose-achievements.git
+$ easy_install nose-achievements/
+
