@@ -12,7 +12,8 @@ from noseachievements.manager import (AchievementManager,
                                       default_manager)
 
 
-log = logging.getLogger(__name__)
+# Python 3 compatibility:
+from noseachievements.compat import callable, unicode
 
 
 class AchievementsPlugin(Plugin):
@@ -127,7 +128,11 @@ class AchievementsPlugin(Plugin):
                 self.data.save(data_file)
                 data_file.close()
 
-        output_stream = codecs.getwriter('utf-8')(self.output_stream)
+        output_stream = self.output_stream
+        if str is not unicode:
+            output_stream = codecs.getwriter('utf-8')(output_stream)
         for achievement in self.data['achievements.new']:
-            output_stream.write(achievement.announcement() + '\n')
+            announcement = achievement.announcement()
+            output_stream.write(announcement)
+            output_stream.write('\n')
 

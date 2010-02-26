@@ -2,6 +2,7 @@
 import unittest
 
 from noseachievements.achievements.base import Achievement
+from noseachievements.compat import unicode
 
 from helpers import (PASS, TestPlugin, NeverUnlockedAchievement,
     AlwaysUnlockedAchievement)
@@ -19,14 +20,14 @@ class TestAchievement(TestPlugin):
         self.assert_("Achievement unlocked" not in self.output)
 
     def test_announcement_returns_unlocked_string(self):
-        self.assertEqual(self.achievement.announcement(), u"""
+        self.assertEqual(self.achievement.announcement(), unicode("""
   /.–==*==–.\\
  ( |      #| ) Achievement unlocked!
   ):      ':(
     `·…_…·´    Test Achievement
       `H´      Test Subtitle
      _.U._     Test Message
-    [_____]""")
+    [_____]""", 'utf-8'))
 
 
 class TestUnlockedAchievement(TestPlugin):

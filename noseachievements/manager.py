@@ -1,6 +1,7 @@
 import noseachievements.achievements.builtin
 from noseachievements.achievements.base import Achievement
-
+# Python 3 compatibility:
+from noseachievements.compat import callable, basestring
 
 class AchievementManager(object):
     def __init__(self, achievements=()):
@@ -8,7 +9,7 @@ class AchievementManager(object):
         self.add_achievements(achievements)
 
     def __iter__(self):
-        return self.achievements.itervalues()
+        return iter(self.achievements.values())
 
     def __contains__(self, achievement):
         if not isinstance(achievement, basestring):

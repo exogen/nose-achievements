@@ -2,9 +2,8 @@ from setuptools import setup
 
 setup(
     name='nose-achievements',
-    version='0.1',
+    version='0.2pre',
     packages=['noseachievements'],
-    install_requires=['nose>=0.11'],
     author="Brian Beck",
     author_email='exogen@gmail.com',
     entry_points="""

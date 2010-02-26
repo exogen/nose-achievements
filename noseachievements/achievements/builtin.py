@@ -3,9 +3,10 @@ import sys
 import re
 import math
 from datetime import datetime, time, timedelta
-from cStringIO import StringIO
-
 from noseachievements.achievements.base import Achievement
+# Python 3 compatibility:
+from noseachievements.compat import StringIO
+
 
 __all__ = ['NightShift', 'Punctuality', 'InstantFeedback', 'CoffeeBreak',
            'TakeAWalk', 'FullOfDots', 'MockingMe', 'GreatExpectations',
@@ -18,7 +19,7 @@ class NightShift(Achievement):
     key = 'builtin:night-shift'
     title = "Night Shift"
     message = "Don't you think it's getting a bit late?"
-    template = u"""
+    template = """
      .·:´   |   *
  * ·::·   – ¤ –      %(announcement)s
   :::::     |
@@ -66,7 +67,7 @@ class InstantFeedback(Achievement):
 class CoffeeBreak(Achievement):
     key = 'builtin:coffee-break'
     title = "Coffee Break"
-    template = u"""
+    template = """
           (
         (  )
       .·:)::·.
@@ -211,7 +212,7 @@ class SausageFingers(Achievement):
 class CodeCoverage(Achievement):
     key = 'builtin:100-code-coverage'
     title = "100% Code Coverage"
-    template = u"""
+    template = """
             .
          .cd'b;
      _  (xk',kx)

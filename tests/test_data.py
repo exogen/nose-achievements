@@ -19,7 +19,7 @@ class TestAchievementData(unittest.TestCase):
 
     def test_save_writes_data_to_stream(self):
         stream = StringIO()
-        dump(self.data, stream)
+        dump(self.data, stream, AchievementData.PICKLE_PROTOCOL)
         self.assertEqual(self.stream.getvalue(), stream.getvalue())
 
     def test_load_reads_data_from_stream(self):

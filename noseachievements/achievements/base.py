@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Achievement(object):
-    template = u"""
+    template = """
   /.–==*==–.\\
  ( |      #| ) %(announcement)s
   ):      ':(
@@ -20,8 +20,13 @@ class Achievement(object):
         pass
 
     def announcement(self, info=None):
-        return self.template % {'announcement': "Achievement unlocked!",
-                                'title': self.title or "",
-                                'subtitle': self.subtitle or "",
-                                'message': self.message or ""}
+        template = self.template
+        try:
+            template = template.decode('utf-8')
+        except AttributeError:
+            pass
+        return template % {'announcement': "Achievement unlocked!",
+                           'title': self.title or "",
+                           'subtitle': self.subtitle or "",
+                           'message': self.message or ""}
 
