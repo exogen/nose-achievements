@@ -18,7 +18,7 @@ class DjangoTestRunner(DjangoTestRunner):
         self.plugin = AchievementsPlugin()
         parser = OptionParser()
         self.plugin.options(parser, os.environ)
-        options, args = parser.parse_args()
+        options, args = parser.parse_args([])
         self.plugin.configure(options, Config())
         self.plugin.enabled = True
 
