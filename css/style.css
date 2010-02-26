@@ -28,17 +28,13 @@ body {
 #header h1 {
   font-size: 24px;
   margin-left: 50px;
-  font-weight: bold;
+  font-weight: normal;
   color: #c2c2cc;
 }
 
-#header h2 {
+#header a.install {
   margin-left: 50px;
   font-size: 16px;
-  font-weight: normal;
-}
-
-#header h2 a {
   background-color: #596;
   color: #fff;
   text-decoration: none;
@@ -47,15 +43,19 @@ body {
   -moz-border-radius: 4px;
 }
 
-#header h2 a:hover {
+#header a.install:hover {
   background-color: #374;
+}
+
+#features {
+  margin-left: 1.5em;
 }
 
 #content h1 {
   font-size: 24px;
   font-weight: normal;
   color: #a2a2ac;
-  margin: 15px 0 15px 100px;
+  margin: 0 0 0 100px;
 }
 
 #content h1 a {

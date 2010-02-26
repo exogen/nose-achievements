@@ -9,7 +9,13 @@
 <div id="header">
 <img id="trophy" src="images/trophy.png" width="100" height="100" alt="trophy">
 <h1>Unit Testing Achievements</h1>
-<h2><a href="http://github.com/exogen/nose-achievements">Get the plugin for nose</a></h2>
+<a class="install" href="http://github.com/exogen/nose-achievements">Install from GitHub</a>
+<ul id="features">
+  <li>Unlock achievements for running your test suite!</li>
+  <li>Works with nose, unittest, and Django</li>
+  <li>Tested with Python 2.6 and 3.1</li>
+  <li>Entry points for discovering more achievements</li>
+</ul>
 </div>
 
 <div id="content">
@@ -18,27 +24,27 @@
 
 <h2>Speed</h2>
 <ul class="achievements">
-  <li class="achievement" id="instant-feedback">
+  <li class="achievement" id="builtin:instant-feedback">
     <h3><a href="#instant-feedback">Instant Feedback</a></h3>
     A suite of at least 50 tests takes less than a second to run.
   </li>
-  <li class="achievement" id="coffee-break">
+  <li class="achievement" id="builtin:coffee-break">
     <h3><a href="#coffee-break">Coffee Break</a></h3>
     The suite takes between 5 and 15 minutes to run.
   </li>
-  <li class="achievement" id="take-a-walk">
+  <li class="achievement" id="builtin:take-a-walk">
     <h3><a href="#take-a-walk">Take a Walk</a></h3>
     The suite takes between 15 and 60 minutes to run.
   </li>
-  <li class="achievement" id="take-a-nap">
+  <li class="achievement" id="builtin:take-a-nap">
     <h3><a href="#take-a-nap">Take a Nap</a></h3>
     The suite takes between 1 and 5 hours to run.
   </li>
-  <li class="achievement" id="take-a-vacation">
+  <li class="achievement" id="builtin:take-a-vacation">
     <h3><a href="#take-a-vacation">Take a Vacation</a></h3>
     The suite takes at least 3 days to run.
   </li>
-  <li class="achievement" id="anticipation">
+  <li class="achievement" id="builtin:anticipation">
     <h3><a href="#anticipation">Antici&hellip;pation</a></h3>
     One test in a suite of at least 10 is slow, and all the rest pass.
   </li>
@@ -46,12 +52,12 @@
 
 <h2>Time</h2>
 <ul class="achievements">
-  <li class="achievement" id="night-shift">
+  <li class="achievement" id="builtin:night-shift">
     <h3><a href="#night-shift">Night Shift</a></h3>
     Make a failing suite pass between 12am and 5am.
   </li>
 
-  <li class="achievement" id="punctuality">
+  <li class="achievement" id="builtin:punctuality">
     <h3><a href="#punctuality">Punctuality</a></h3>
     Make a failing suite pass at 9am (give or take a minute).
   </li>
@@ -59,28 +65,28 @@
 
 <h2>Failure</h2>
 <ul class="achievements">
-  <li class="achievement" id="complete-failure">
+  <li class="achievement" id="builtin:complete-failure">
     <h3><a href="#complete-failure">Complete Failure</a></h3>
     All tests in a suite of 50 to 999 fail.
   </li>
 
-  <li class="achievement" id="epic-fail">
+  <li class="achievement" id="builtin:epic-fail">
     <h3><a href="#epic-fail">Epic Fail</a></h3>
     All tests in a suite of at least 1,000 fail.
   </li>
-  <li class="achievement" id="minor-letdown">
+  <li class="achievement" id="builtin:minor-letdown">
     <h3><a href="#minor-letdown">Minor Letdown</a></h3>
     All tests in a suite of 10 to 99 pass except the last.
   </li>
-  <li class="achievement" id="major-letdown">
+  <li class="achievement" id="builtin:major-letdown">
     <h3><a href="#major-letdown">Major Letdown</a></h3>
     All tests in a suite of at least 100 pass except the last.
   </li>
-  <li class="achievement" id="happy-ending">
+  <li class="achievement" id="builtin:happy-ending">
     <h3><a href="#happy-ending">Happy Ending</a></h3>
     Only the last test in a suite of at least 10 passes.
   </li>
-  <li class="achievement" id="heisenbug">
+  <li class="achievement" id="builtin:heisenbug">
     <h3><a href="#heisenbug">Heisenbug</a></h3>
     Make a passing suite fail without changing anything.
   </li>
@@ -88,15 +94,15 @@
 
 <h2>Errors</h2>
 <ul class="achievements">
-  <li class="achievement" id="sausage-fingers">
+  <li class="achievement" id="builtin:sausage-fingers">
     <h3><a href="#sausage-fingers">Sausage Fingers</a></h3>
     Cause at least 2 distinct syntax errors in a single run.
   </li>
-  <li class="achievement" id="to-understand-recursion">
+  <li class="achievement" id="builtin:to-understand-recursion">
     <h3><a href="#to-understand-recursion">To Understand Recursion&hellip;</a></h3>
     Exceed the maximum recursion depth.
   </li>
-  <li class="achievement" id="to-err-is-human">
+  <li class="achievement" id="builtin:to-err-is-human">
     <h3><a href="#to-err-is-human">To Err is Human</a></h3>
     Cause all tests in a suite of at least 50 to fail with a single error.
   </li>
@@ -104,7 +110,7 @@
 
 <h2>Size</h2>
 <ul class="achievements">
-  <li class="achievement" id="my-god-its-full-of-dots">
+  <li class="achievement" id="builtin:my-god-its-full-of-dots">
     <h3><a href="#my-god-its-full-of-dots">My God, It’s Full of Dots</a></h3>
     The suite has at least 2,001 passing tests.
   </li>
@@ -112,7 +118,7 @@
 
 <h2>Frequency</h2>
 <ul class="achievements">
-  <li class="achievement" id="ocd">
+  <li class="achievement" id="builtin:ocd">
     <h3><a href="#ocd">OCD</a></h3>
     Run the suite at least 5 times in the span of a minute without changing anything.
   </li>
@@ -120,7 +126,7 @@
 
 <h2>Coverage</h2>
 <ul class="achievements">
-  <li class="achievement" id="100-code-coverage">
+  <li class="achievement" id="builtin:100-code-coverage">
     <h3><a href="#100-code-coverage">100% Code Coverage <span class="sep">&bull;</span> Level <var>x</var></a></h3>
     Cover 100% of at least 2<sup><var>x</var>+7</sup> statements with passing tests.
   </li>
@@ -128,11 +134,11 @@
 
 <h2>Libraries</h2>
 <ul class="achievements">
-  <li class="achievement" id="are-you-mocking-me">
+  <li class="achievement" id="builtin:are-you-mocking-me">
     <h3><a href="#are-you-mocking-me">Are You Mocking Me?</a></h3>
     Import a mocking library with at least one passing test.
   </li>
-  <li class="achievement" id="great-expectations">
+  <li class="achievement" id="builtin:great-expectations">
     <h3><a href="#great-expectations">Great Expectations</a></h3>
     Import the Expecter Gadget library.
   </li>
@@ -140,7 +146,7 @@
 
 <h2>Refactoring</h2>
 <ul class="achievements">
-  <li class="achievement" id="successful-refactor">
+  <li class="achievement" id="builtin:successful-refactor">
     <h3><a href="#successful-refactor">Successful Refactor <span class="sep">&bull;</span> Level <var>x</var></a></h3>
     Change at least 2<sup><var>x</var>+5</sup> lines of code between two consecutive passing runs.
   </li>
