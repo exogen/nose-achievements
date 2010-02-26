@@ -3,18 +3,25 @@ import codecs
 from traceback import format_exception
 from datetime import datetime
 
-from nose.plugins import Plugin
-from nose.util import test_address
-
 from noseachievements.data import AchievementData
 from noseachievements.manager import (AchievementManager,
-                                      FilterAchievementManager,
-                                      default_manager)
+    FilterAchievementManager, default_manager)
 
+try:
+    from nose.plugins import Plugin
+except ImportError:
+    Plugin = object
+try:
+    from nose.util import test_address
+except ImportError:
+    def test_address(test):
+        return test.id()
 
 # Python 3 compatibility:
 from noseachievements.compat import callable, unicode
 
+
+log = logging.getLogger(__name__)
 
 class AchievementsPlugin(Plugin):
     name = 'achievements'
@@ -23,7 +30,7 @@ class AchievementsPlugin(Plugin):
     default_achievements = 'all'
 
     def __init__(self, achievements=default_manager, data=None):
-        Plugin.__init__(self)
+        super(AchievementsPlugin, self).__init__()
         if callable(achievements):
             achievements = achievements()
         if not isinstance(achievements, AchievementManager):
@@ -32,7 +39,9 @@ class AchievementsPlugin(Plugin):
         self.data = AchievementData(data or {})
 
     def options(self, parser, env):
-        Plugin.options(self, parser, env)
+        if Plugin is not object:
+            super(AchievementsPlugin, self).options(parser, env)
+
         parser.add_option('--achievements-file', action='store',
             default=env.get('ACHIEVEMENTS_FILE', self.default_filename),
             metavar='FILE', dest='data_filename',
@@ -46,7 +55,8 @@ class AchievementsPlugin(Plugin):
                  "groups. [ACHIEVEMENTS]")
     
     def configure(self, options, conf):
-        Plugin.configure(self, options, conf)
+        if Plugin is not object:
+            super(AchievementsPlugin, self).configure(options, conf)
 
         self.data_filename = options.data_filename or None
 

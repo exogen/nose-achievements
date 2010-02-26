@@ -1,25 +1,24 @@
 import unittest
 
-from nose.util import test_address
 
-
-class TextTestResult(unittest._TextTestResult):
+class AchievementsTestResult(unittest._TextTestResult):
     def __init__(self, *args, **kwargs):
         self.plugin = kwargs.pop('plugin', None)
-        unittest._TextTestResult.__init__(self, *args, **kwargs)
+        super(AchievementsTestResult, self).__init__(*args, **kwargs)
+
+    def stopTest(self, test):
+        self.plugin.afterTest(test)
+        return super(AchievementsTestResult, self).stopTest(test)
 
     def addSuccess(self, test):
         self.plugin.addSuccess(test)
-        self.plugin.afterTest(test)
-        return unittest._TextTestResult.addSuccess(self, test)
+        return super(AchievementsTestResult, self).addSuccess(test)
 
     def addError(self, test, err):
         self.plugin.addError(test, err)
-        self.plugin.afterTest(test)
-        return unittest._TextTestResult.addError(self, test, err)
+        return super(AchievementsTestResult, self).addError(test, err)
 
     def addFailure(self, test, err):
         self.plugin.addFailure(test, err)
-        self.plugin.afterTest(test)
-        return unittest._TextTestResult.addFailure(self, test, err)
+        return super(AchievementsTestResult, self).addFailure(test, err)
 
