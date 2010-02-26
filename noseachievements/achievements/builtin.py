@@ -224,7 +224,7 @@ class CodeCoverage(Achievement):
           |"""
 
     def configure(self, options, conf):
-        self.enabled = options.enable_plugin_coverage
+        self.enabled = getattr(options, 'enable_plugin_coverage', False)
         if self.enabled:
             try:
                 from coverage import coverage
