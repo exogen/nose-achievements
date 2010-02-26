@@ -4,7 +4,14 @@ Use like so:
 
 $ nosetests --with-achievements
 
+
+Using Django? Put this in settings.py:
+
+TEST_RUNNER = 'noseachievements.djangotest.DjangoTestSuiteRunner'
+
+
 See the list of achievements at: http://exogen.github.com/nose-achievements/
+
 
 Wanna enable them by default? Use this setup.cfg:
 
