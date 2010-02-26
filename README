@@ -12,7 +12,7 @@ from noseachievements.runner import AchievementsTestRunner
 unittest.main(testRunner=AchievementsTestRunner)
 
 
-Using Django? Put this in settings.py:
+Using Django 1.2+? Put this in settings.py:
 
 TEST_RUNNER = 'noseachievements.djangotest.AchievementsDjangoTestSuiteRunner'
 
