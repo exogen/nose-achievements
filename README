@@ -1,20 +1,21 @@
 See INSTALL for installation instructions.
 
-Use like so:
+Using nose? Run like so:
 
 $ nosetests --with-achievements
 
 
+Just using unittest? Use the included test runner:
+
+from noseachievements.runner import AchievementsTestRunner
+
+unittest.main(testRunner=AchievementsTestRunner)
+
+
 Using Django? Put this in settings.py:
 
-TEST_RUNNER = 'noseachievements.djangotest.DjangoTestSuiteRunner'
+TEST_RUNNER = 'noseachievements.djangotest.AchievementsDjangoTestSuiteRunner'
 
 
 See the list of achievements at: http://exogen.github.com/nose-achievements/
-
-
-Wanna enable them by default? Use this setup.cfg:
-
-[nosetests]
-with-achievements=1
 
