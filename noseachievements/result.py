@@ -14,12 +14,12 @@ class TextTestResult(unittest._TextTestResult):
         return unittest._TextTestResult.addSuccess(self, test)
 
     def addError(self, test, err):
-        self.plugin.addError(test)
+        self.plugin.addError(test, err)
         self.plugin.afterTest(test)
         return unittest._TextTestResult.addError(self, test, err)
 
     def addFailure(self, test, err):
-        self.plugin.addFailure(test)
+        self.plugin.addFailure(test, err)
         self.plugin.afterTest(test)
         return unittest._TextTestResult.addFailure(self, test, err)
 
