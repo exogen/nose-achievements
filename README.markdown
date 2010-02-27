@@ -5,7 +5,7 @@ Installation
 ------------
 From the source repository:
 
-    $ pip install  pip install git+git://github.com/exogen/nose-achievements.git
+    $ pip install git+git://github.com/exogen/nose-achievements.git
 
 See [INSTALL][] for more options.
 
