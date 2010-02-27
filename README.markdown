@@ -37,5 +37,11 @@ Achievements
 ------------
 See the list of achievements on [the homepage][home].
 
+More Ideas
+----------
+Please share your achievement ideas on the [wiki][]!
+
 [INSTALL]: http://github.com/exogen/nose-achievements/blob/master/INSTALL
 [home]: http://exogen.github.com/nose-achievements/
+[wiki]: http://wiki.github.com/exogen/nose-achievements/
+
