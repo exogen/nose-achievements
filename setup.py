@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='nose-achievements',
     version='0.2pre',
-    packages=['noseachievements'],
+    packages=['noseachievements', 'noseachievements.achievements'],
     author="Brian Beck",
     author_email='exogen@gmail.com',
     entry_points="""
