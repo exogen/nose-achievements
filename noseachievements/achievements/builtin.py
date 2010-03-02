@@ -169,6 +169,9 @@ class MockingMe(Achievement):
     def __init__(self, imported_modules=sys.modules):
         self.imported_modules = imported_modules
 
+    def __getstate__(self):
+        return {'imported_modules': dict.fromkeys(self.imported_modules)}
+
     def finalize(self, data, result):
         for module in self.mocking_modules:
             if module in self.imported_modules:
@@ -181,6 +184,9 @@ class GreatExpectations(Achievement):
 
     def __init__(self, imported_modules=sys.modules):
         self.imported_modules = imported_modules
+
+    def __getstate__(self):
+        return {'imported_modules': dict.fromkeys(self.imported_modules)}
 
     def finalize(self, data, result):
         if 'expecter' in self.imported_modules:

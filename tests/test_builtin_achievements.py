@@ -2,6 +2,7 @@
 import unittest
 from datetime import datetime
 
+from noseachievements.plugin import AchievementsPlugin
 from noseachievements.achievements.builtin import (CompleteFailure, EpicFail,
     MinorLetdown, MajorLetdown, HappyEnding, NightShift, Punctuality,
     SausageFingers, ToUnderstandRecursion, InstantFeedback, CoffeeBreak,
@@ -258,6 +259,9 @@ class TestMockingMeAchievementUnlocked(TestPlugin):
         self.assert_("Achievement unlocked!" in self.output and
                      "Are You Mocking Me?" in self.output)
 
+class TestMockingMeAchievementPickler(TestPlugin):
+    data = {'achievements.new': [MockingMe()]}
+
 class TestFullOfDotsAchievement(TestPlugin):
     achievements = [FullOfDots]
     tests = [PASS] * 2000
@@ -285,4 +289,7 @@ class TestGreatExpectationsAchievementUnlocked(TestPlugin):
     def test_achievement_is_unlocked(self):
         self.assert_("Achievement unlocked!" in self.output and
                      "Great Expectations" in self.output)
+
+class TestMockingMeAchievementPickler(TestPlugin):
+    data = {'achievements.new': [GreatExpectations()]}
 
