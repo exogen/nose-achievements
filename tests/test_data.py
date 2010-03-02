@@ -26,3 +26,11 @@ class TestAchievementData(unittest.TestCase):
         data = AchievementData.load(self.stream)
         self.assertEqual(self.data, data)
 
+class TestAchievementDataFromEmptyFile(unittest.TestCase):
+    def setUp(self):
+        self.stream = StringIO()
+
+    def test_load_returns_empty_data_instead_of_eof_error(self):
+        data = AchievementData.load(self.stream)
+        self.assertEqual(data, AchievementData())
+

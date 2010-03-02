@@ -69,6 +69,8 @@ class AchievementsPlugin(Plugin):
             achievement.configure(options, conf)
 
     def begin(self):
+        history = []
+        unlocked = {}
         if self.data_filename:
             try:
                 data_file = open(self.data_filename, 'rb')
@@ -80,15 +82,13 @@ class AchievementsPlugin(Plugin):
                 data_file.close()
                 log.info("Loaded achievement data from %s",
                          self.data_filename)
-                history = data.pop('history', [])
+                history = data.pop('history', history)
                 history.append(data)
                 del history[:-10]
-                self.data.setdefault('history', history)
-                self.data.setdefault('achievements.unlocked',
-                                     data.get('achievements.unlocked', {}))
+                unlocked = data.get('achievements.unlocked', unlocked)
 
-        self.data.setdefault('history', [])
-        self.data.setdefault('achievements.unlocked', {})
+        self.data.setdefault('history', history)
+        self.data.setdefault('achievements.unlocked', unlocked)
         self.data.setdefault('achievements.new', [])
         self.data.setdefault('result.tests', [])
         self.data.setdefault('result.string', '')

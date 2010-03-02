@@ -1,5 +1,8 @@
+import logging
 from noseachievements.compat import pickle
 
+
+log = logging.getLogger(__name__)
 
 class AchievementData(dict):
     PICKLE_PROTOCOL = 2
@@ -9,7 +12,11 @@ class AchievementData(dict):
 
     @classmethod
     def load(cls, stream):
-        return pickle.load(stream)
+        try:
+            return pickle.load(stream)
+        except EOFError:
+            log.warning("Empty data file, returning empty data")
+            return cls()
 
     def unlock(self, achievement):
         if achievement.key not in self['achievements.unlocked']:
