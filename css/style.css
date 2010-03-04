@@ -138,3 +138,11 @@ var {
   text-style: italic;
 }
 
+p.coming {
+  padding: 0;
+  margin: 0;
+  float: right;
+  font-size: 10px;
+  color: #7a7;
+  line-height: 1;
+}
