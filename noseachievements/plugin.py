@@ -37,6 +37,7 @@ class AchievementsPlugin(Plugin):
             achievements = AchievementManager(achievements)
         self.achievements = achievements
         self.data = AchievementData(data or {})
+        self.output_stream = None
 
     def options(self, parser, env):
         if Plugin is not object:
@@ -55,6 +56,9 @@ class AchievementsPlugin(Plugin):
                  "groups. [ACHIEVEMENTS]")
     
     def configure(self, options, conf):
+        # Save a reference to the `Config` to access its `stream` in case
+        # setOutputStream isn't called.
+        self.config = conf
         if Plugin is not object:
             super(AchievementsPlugin, self).configure(options, conf)
 
@@ -138,7 +142,7 @@ class AchievementsPlugin(Plugin):
                 self.data.save(data_file)
                 data_file.close()
 
-        output_stream = self.output_stream
+        output_stream = self.output_stream or self.config.stream
         if str is not unicode:
             output_stream = codecs.getwriter('utf-8')(output_stream)
         for achievement in self.data['achievements.new']:
