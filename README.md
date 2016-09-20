@@ -1,6 +1,6 @@
 Unit Testing Achievements
 ========================
-by [Brian Beck][www] / [@ua6oxa](http://twitter.com/ua6oxa)
+![Maintainers Wanted](https://img.shields.io/badge/maintainers-wanted-red.svg)
 
 ![trophy](http://exogen.github.com/nose-achievements/images/trophy.png)
 
